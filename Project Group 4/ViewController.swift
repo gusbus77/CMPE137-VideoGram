@@ -1,25 +1,121 @@
 //
-//  ViewController.swift
-//  Project Group 4
+//  LogInViewController.swift
+//  VideoGram Project Group 4
 //
-//  Created by MinJoung Kim on 9/18/18.
-//  Copyright © 2018 The WIndow Specialists. All rights reserved.
+//  Created by student on 9/22/18.
+//  Copyright © 2018 The-Windows-Specialists. All rights reserved.
 //
-
 import UIKit
-
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBOutlet var passwordTextField: UITextField! {
+        didSet{
+            textFieldNoEditing(passwordTextField)
+        }
     }
-
-
+    @IBOutlet var usernameTextField: UITextField! {
+        didSet {
+            textFieldNoEditing(usernameTextField)
+        }
+    }
+    @IBOutlet var back: UIButton!
+    
+    @IBOutlet var test: UIButton!
+    
+    @IBOutlet var albums: UIButton!
+    
+    @IBOutlet var shareVideo: UIButton!
+    
+    @IBOutlet var signInButton: UIButton!
+    
+    @IBOutlet var signUpButton: UIButton!
+    
+    
+    @IBAction func signInAction(_ sender: UIButton) {
+        let usernameInput = usernameTextField.text!
+        let passwordInput = passwordTextField.text!
+        
+        if UserBase.CKUsers.testCKConnection() {
+            if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameExists {
+                let signingUserIn = UserBase.CKUsers.login(username: usernameInput, password: passwordInput)
+                if signingUserIn == .SuccessfulLogin {
+                    //Popup notification - Login Successful
+                    popUpNotification(title: LoginSuccessful, message: LoggingUserIn)
+                }
+                else {
+                    //Popup notification - incorrect password
+                    popUpNotification(title: Error, message: IncorrectPassword)
+                }
+            }
+            else {
+                //Popup notification- User DNE
+                popUpNotification(title: Error, message: UserNameDoesNotExist)
+            }
+        }
+        else {
+            //Popup notification- not connected to Cloud Server
+            popUpNotification(title: Error, message: CloudConnectionError)
+        }
+    }
+    
+    @IBAction func createAccountAction(_ sender: Any) {
+        let usernameInput = usernameTextField.text!
+        let passwordInput = passwordTextField.text!
+        
+        if UserBase.CKUsers.testCKConnection() {
+            if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameDoesNotExist {
+                UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput)
+                UserBase.CKUsers.saveUserBase()
+                //Popup notification - Account is created, try logging in now
+                popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
+            }
+            else {
+                //Popup notification - Username already exists
+                popUpNotification(title: Error, message: UserNameAlreadyExists)
+            }
+        }
+        else {
+            //Popup notification - not connected to cloud server
+            popUpNotification(title: Error, message: CloudConnectionError)
+        }
+    }
+    
+    
+    func popUpNotification(title: String, message: String) {
+        let popup = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        popup.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(popup, animated: true, completion:nil)
+    }
+    
+    let Error = "Error"
+    let UserNameAlreadyExists = "Username Already Exists"
+    let UserNameDoesNotExist = "Username Does Not Exist"
+    let IncorrectPassword = "Incorrect Password"
+    let LoginSuccessful = "Login Successful"
+    let LoggingUserIn = "Logging user in..."
+    let CreatedAccount = "Created Account"
+    let NewAccountSignIn = "Please log in."
+    let CloudConnectionError = "Cannot connect to CKDB"
+    
+    func textFieldNoEditing(_ textfield: UITextField) {
+        textfield.autocorrectionType = .no
+        textfield.autocapitalizationType = .none
+        textfield.spellCheckingType = .no
+    }
+    
+    //TODO
+    //    func goToHomePage() {
+    //        //Moves to homepage after successful login
+    //    }
+    //
+    //    func goToLoginPage() {
+    //        //moves back to login page after unsuccessful login, or successful sign up
+    //    }
+    
+    
 }
-
