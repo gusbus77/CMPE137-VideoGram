@@ -35,7 +35,47 @@ class ViewController: UIViewController {
     
     @IBOutlet var signUpButton: UIButton!
     
+    @IBOutlet weak var resisterButton: UIButton!
     
+    @IBOutlet weak var BackButton: UIButton!
+    
+    var userUid: String!
+    
+    func goToMainPage() {
+        performSegue(withIdentifier: "toMainPage", sender: nil)
+       // print("other function")
+    }
+    func goToLogInPageFromSignUp() {
+        performSegue(withIdentifier: "SignupToLogin", sender: nil)
+        print("other function")
+    }
+    
+    func goToSignUp() {
+        performSegue(withIdentifier: "SignUp", sender: nil)
+        
+    }
+    func logOut() {
+        performSegue(withIdentifier: "ToLogInPage", sender: nil)
+    }
+    func goToAlbum() {
+        performSegue(withIdentifier: "GoToAlbums", sender: nil)
+    }
+    func goToProfile() {
+        performSegue(withIdentifier: "GoToProfile", sender: nil)
+    }
+    func goToFeed() {
+        performSegue(withIdentifier: "GoToFeed", sender: nil)
+    }
+    
+    
+    @IBAction func logInPageToSignUpPage(_ sender: UIButton) {
+        self.goToSignUp()
+         print("loginpagetosignuppate")
+    }
+    
+    @IBAction func TESTING_BUTTON(_ sender: UIButton) {
+        self.goToMainPage()
+    }
     @IBAction func signInAction(_ sender: UIButton) {
         let usernameInput = usernameTextField.text!
         let passwordInput = passwordTextField.text!
@@ -44,6 +84,7 @@ class ViewController: UIViewController {
             if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameExists {
                 let signingUserIn = UserBase.CKUsers.login(username: usernameInput, password: passwordInput)
                 if signingUserIn == .SuccessfulLogin {
+                    self.goToMainPage()
                     //Popup notification - Login Successful
                     popUpNotification(title: LoginSuccessful, message: LoggingUserIn)
                 }
@@ -63,8 +104,29 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func createAccountAction(_ sender: Any) {
-        let usernameInput = usernameTextField.text!
+    @IBAction func GoBackToLoginPage(_ sender: Any) {
+        self.goToLogInPageFromSignUp()
+    }
+    @IBAction func logOut(_ sender: UIButton) {
+        self.logOut()
+    }
+    @IBAction func goToAlbums(_ sender: UIButton) {
+        self.goToAlbum()
+    }
+    @IBAction func goToProfile(_ sender: UIButton) {
+        self.goToProfile()
+    }
+    @IBAction func goToFeed(_ sender: UIButton) {
+        self.goToFeed()
+    }
+    
+    
+    
+    @IBAction func CreateAccoutAction(_ sender: Any) {
+        
+        
+        
+       let usernameInput = usernameTextField.text!
         let passwordInput = passwordTextField.text!
         
         if UserBase.CKUsers.testCKConnection() {
@@ -72,6 +134,7 @@ class ViewController: UIViewController {
                 UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput)
                 UserBase.CKUsers.saveUserBase()
                 //Popup notification - Account is created, try logging in now
+                self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
                 popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
             }
             else {
@@ -84,6 +147,12 @@ class ViewController: UIViewController {
             popUpNotification(title: Error, message: CloudConnectionError)
         }
     }
+    
+    
+   
+
+
+  
     
     
     func popUpNotification(title: String, message: String) {
@@ -116,6 +185,7 @@ class ViewController: UIViewController {
     //    func goToLoginPage() {
     //        //moves back to login page after unsuccessful login, or successful sign up
     //    }
+    
     
     
 }
