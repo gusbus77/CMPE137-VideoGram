@@ -8,8 +8,8 @@ import CloudKit
 //    case SuccessfulRegistration
 //}
 enum LoginResults {
-    case UsernameDoesNotExist
-    case UsernameExists
+    case AccountDoesNotExist
+    case AccountExists
     case IncorrectPassword
     case SuccessfulLogin
 }
@@ -52,7 +52,8 @@ class UserBase{
                 for record in records {
                     let username = record.object(forKey: "username") as! String
                     let password = record.object(forKey: "password") as! String
-                    self.addUser(username: username, password: password)
+                    let email = record.object(forKey: "email") as! String
+                    self.addUser(username: username, password: password, email: email)
                 }
             }
             else {
@@ -68,6 +69,7 @@ class UserBase{
         for user in users {
             record.setObject(user.username as CKRecordValue?, forKey: "username")
             record.setObject(user.password as CKRecordValue?, forKey: "password")
+            record.setObject(user.email as CKRecordValue?, forKey: "email")
             privateCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                 if error == nil {
                     return
@@ -76,17 +78,17 @@ class UserBase{
         }
     }
     
-    func addUser(username: String, password: String) {
-        let newUser = User(username: username, password: password)
+    func addUser(usernameInput: String, passwordInput: String, emailInput: String) {
+        let newUser = User(username: username, password: password, email: email)
         users.append(newUser)
     }
     
     func verifyUser(username: String)->LoginResults{
         if users.contains(where: {$0.username == username.lowercased()}) {
-            return .UsernameExists
+            return .AccountExists
         }
         else {
-            return .UsernameDoesNotExist
+            return .AccountDoesNotExist
         }
     }
     

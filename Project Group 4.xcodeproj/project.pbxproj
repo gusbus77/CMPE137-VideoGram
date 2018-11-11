@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		3DF990282151C650005E1CF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF990272151C650005E1CF6 /* AppDelegate.swift */; };
-		3DF9902A2151C650005E1CF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF990292151C650005E1CF6 /* ViewController.swift */; };
+		3DF9902A2151C650005E1CF6 /* LogInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF990292151C650005E1CF6 /* LogInController.swift */; };
 		3DF9902D2151C650005E1CF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9902B2151C650005E1CF6 /* Main.storyboard */; };
 		3DF9902F2151C652005E1CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9902E2151C652005E1CF6 /* Assets.xcassets */; };
 		3DF990322151C652005E1CF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF990302151C652005E1CF6 /* LaunchScreen.storyboard */; };
 		3DF9903C2151C683005E1CF6 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF9903B2151C683005E1CF6 /* CloudKit.framework */; };
 		3FA0149B21582AB400102100 /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA0149A21582AB400102100 /* user.swift */; };
+		3FAD698F21989C3C006277B4 /* UploadVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD698E21989C3C006277B4 /* UploadVideo.swift */; };
+		3FAD69932198ACAB006277B4 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD69922198ACAB006277B4 /* SignUpController.swift */; };
+		3FAD69952198ACBA006277B4 /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD69942198ACBA006277B4 /* HomePageController.swift */; };
+		3FAD69992198AD01006277B4 /* AlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD69982198AD01006277B4 /* AlbumController.swift */; };
+		3FAD699B2198AD15006277B4 /* UploadVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD699A2198AD15006277B4 /* UploadVideoController.swift */; };
+		3FAD699E2198AD60006277B4 /* VideoFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD699D2198AD60006277B4 /* VideoFeedController.swift */; };
 		5F48A0A28B41B360717F6161 /* Pods_Project_Group_4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574E8E538FD7EBE7AC503CA2 /* Pods_Project_Group_4.framework */; };
 /* End PBXBuildFile section */
 
@@ -21,7 +27,7 @@
 		2CC696F7FAA20A42DEEE9E8E /* Pods-Project Group 4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Group 4.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project Group 4/Pods-Project Group 4.release.xcconfig"; sourceTree = "<group>"; };
 		3DF990242151C650005E1CF6 /* Project Group 4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Group 4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF990272151C650005E1CF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3DF990292151C650005E1CF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3DF990292151C650005E1CF6 /* LogInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInController.swift; sourceTree = "<group>"; };
 		3DF9902C2151C650005E1CF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DF9902E2151C652005E1CF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DF990312151C652005E1CF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -29,6 +35,12 @@
 		3DF990392151C679005E1CF6 /* Project Group 4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Project Group 4.entitlements"; sourceTree = "<group>"; };
 		3DF9903B2151C683005E1CF6 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		3FA0149A21582AB400102100 /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
+		3FAD698E21989C3C006277B4 /* UploadVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideo.swift; sourceTree = "<group>"; };
+		3FAD69922198ACAB006277B4 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		3FAD69942198ACBA006277B4 /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
+		3FAD69982198AD01006277B4 /* AlbumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumController.swift; sourceTree = "<group>"; };
+		3FAD699A2198AD15006277B4 /* UploadVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoController.swift; sourceTree = "<group>"; };
+		3FAD699D2198AD60006277B4 /* VideoFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFeedController.swift; sourceTree = "<group>"; };
 		574E8E538FD7EBE7AC503CA2 /* Pods_Project_Group_4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Group_4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7512A168835173309301F21C /* Pods-Project Group 4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Group 4.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Group 4/Pods-Project Group 4.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,7 +61,12 @@
 		3D1BEAF1217C85C200E62823 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3DF990292151C650005E1CF6 /* ViewController.swift */,
+				3DF990292151C650005E1CF6 /* LogInController.swift */,
+				3FAD69922198ACAB006277B4 /* SignUpController.swift */,
+				3FAD69942198ACBA006277B4 /* HomePageController.swift */,
+				3FAD69982198AD01006277B4 /* AlbumController.swift */,
+				3FAD699A2198AD15006277B4 /* UploadVideoController.swift */,
+				3FAD699D2198AD60006277B4 /* VideoFeedController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -75,12 +92,12 @@
 		3DF990262151C650005E1CF6 /* Project Group 4 */ = {
 			isa = PBXGroup;
 			children = (
-				3FA0149C21582B5E00102100 /* New Group */,
-				3DF990392151C679005E1CF6 /* Project Group 4.entitlements */,
-				3FA0149A21582AB400102100 /* user.swift */,
 				3D1BEAF1217C85C200E62823 /* ViewControllers */,
+				3FAD699C2198AD23006277B4 /* Models */,
+				3DF990392151C679005E1CF6 /* Project Group 4.entitlements */,
 				3DF9902B2151C650005E1CF6 /* Main.storyboard */,
 				3DF990332151C652005E1CF6 /* Info.plist */,
+				3FA0149C21582B5E00102100 /* New Group */,
 			);
 			path = "Project Group 4";
 			sourceTree = "<group>";
@@ -102,6 +119,15 @@
 				3DF9902E2151C652005E1CF6 /* Assets.xcassets */,
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		3FAD699C2198AD23006277B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3FA0149A21582AB400102100 /* user.swift */,
+				3FAD698E21989C3C006277B4 /* UploadVideo.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		79E8E014BB96197B2BBBA06B /* Pods */ = {
@@ -195,15 +221,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Project Group 4-checkManifestLockResult.txt",
 			);
@@ -217,8 +239,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Project Group 4/Pods-Project Group 4-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -226,8 +246,6 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -245,9 +263,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DF9902A2151C650005E1CF6 /* ViewController.swift in Sources */,
+				3FAD69932198ACAB006277B4 /* SignUpController.swift in Sources */,
+				3FAD698F21989C3C006277B4 /* UploadVideo.swift in Sources */,
+				3DF9902A2151C650005E1CF6 /* LogInController.swift in Sources */,
 				3DF990282151C650005E1CF6 /* AppDelegate.swift in Sources */,
+				3FAD69992198AD01006277B4 /* AlbumController.swift in Sources */,
+				3FAD699E2198AD60006277B4 /* VideoFeedController.swift in Sources */,
 				3FA0149B21582AB400102100 /* user.swift in Sources */,
+				3FAD699B2198AD15006277B4 /* UploadVideoController.swift in Sources */,
+				3FAD69952198ACBA006277B4 /* HomePageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 //
 import UIKit
 import FBSDKLoginKit
-class ViewController: UIViewController {
+class LogInController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +26,8 @@ class ViewController: UIViewController {
             textFieldNoEditing(usernameTextField)
         }
     }
+    
+    
     @IBOutlet var back: UIButton!
     
     @IBOutlet var test: UIButton!
@@ -126,11 +128,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func CreateAccoutAction(_ sender: Any) {
-        
-        
-        
        let usernameInput = usernameTextField.text!
         let passwordInput = passwordTextField.text!
+        //let emailInput = emailTextField.text!
         
         if UserBase.CKUsers.testCKConnection() {
             if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameDoesNotExist {
@@ -150,12 +150,6 @@ class ViewController: UIViewController {
             popUpNotification(title: Error, message: CloudConnectionError)
         }
     }
-    
-    
-   
-
-
-  
     
     
     func popUpNotification(title: String, message: String) {
@@ -180,14 +174,6 @@ class ViewController: UIViewController {
         textfield.spellCheckingType = .no
     }
     
-    //TODO
-    //    func goToHomePage() {
-    //        //Moves to homepage after successful login
-    //    }
-    //
-    //    func goToLoginPage() {
-    //        //moves back to login page after unsuccessful login, or successful sign up
-    //    }
     
     
     
