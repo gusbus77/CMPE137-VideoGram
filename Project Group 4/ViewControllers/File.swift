@@ -1,5 +1,5 @@
 //
-//  AlbumController.swift
+//  File.swift
 //  Project Group 4
 //
 //  Created by student on 11/11/18.
@@ -7,7 +7,3 @@
 //
 
 import Foundation
-import UIKit
-class AlbumController: UIViewController{
-    
-}

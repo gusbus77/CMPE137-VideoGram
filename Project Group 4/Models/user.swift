@@ -16,7 +16,8 @@ enum LoginResults {
 struct User {
     var username: String = ""
     var password: String = ""
-    //var email: String = ""
+    var email: String = ""
+    //var userID: Int = ""
 }
 class UserBase{
     static let CKUsers = UserBase()
@@ -25,6 +26,8 @@ class UserBase{
     var privateCKDatabase: CKDatabase = CKContainer.default().privateCloudDatabase
     var publicCKDatabase: CKDatabase = CKContainer.default().publicCloudDatabase
     var sharedCKDatabase: CKDatabase = CKContainer.default().sharedCloudDatabase
+    
+    static var uniqueID = 0
     
     private init() {
     }
@@ -105,7 +108,7 @@ class UserBase{
         return .IncorrectPassword
     }
     
-    
+
     //TODO
     //Add register throughu Social Media
     //Add email verification when registering new account

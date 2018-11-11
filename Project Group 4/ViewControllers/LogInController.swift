@@ -27,50 +27,11 @@ class LogInController: UIViewController {
         }
     }
     
-    
-    @IBOutlet var back: UIButton!
-    
     @IBOutlet var test: UIButton!
-    
-    @IBOutlet var albums: UIButton!
-    
-    @IBOutlet var shareVideo: UIButton!
     
     @IBOutlet var signInButton: UIButton!
     
     @IBOutlet var signUpButton: UIButton!
-    
-    @IBOutlet weak var resisterButton: UIButton!
-    
-    @IBOutlet weak var BackButton: UIButton!
-    
-    var userUid: String!
-    
-    func goToMainPage() {
-        performSegue(withIdentifier: "toMainPage", sender: nil)
-       // print("other function")
-    }
-    func goToLogInPageFromSignUp() {
-        performSegue(withIdentifier: "SignupToLogin", sender: nil)
-        print("other function")
-    }
-    
-    func goToSignUp() {
-        performSegue(withIdentifier: "SignUp", sender: nil)
-        
-    }
-    func logOut() {
-        performSegue(withIdentifier: "ToLogInPage", sender: nil)
-    }
-    func goToAlbum() {
-        performSegue(withIdentifier: "GoToAlbums", sender: nil)
-    }
-    func goToProfile() {
-        performSegue(withIdentifier: "GoToProfile", sender: nil)
-    }
-    func goToFeed() {
-        performSegue(withIdentifier: "GoToFeed", sender: nil)
-    }
     
     
     @IBAction func logInPageToSignUpPage(_ sender: UIButton) {
@@ -108,49 +69,15 @@ class LogInController: UIViewController {
             popUpNotification(title: Error, message: CloudConnectionError)
         }
     }
-    
-    @IBAction func GoBackToLoginPage(_ sender: Any) {
-        self.goToLogInPageFromSignUp()
-    }
-    @IBAction func logOut(_ sender: UIButton) {
-        self.logOut()
-    }
-    @IBAction func goToAlbums(_ sender: UIButton) {
-        self.goToAlbum()
-    }
-    @IBAction func goToProfile(_ sender: UIButton) {
-        self.goToProfile()
-    }
-    @IBAction func goToFeed(_ sender: UIButton) {
-        self.goToFeed()
+
+    func goToMainPage() {
+        performSegue(withIdentifier: "toMainPage", sender: nil)
+        // print("other function")
     }
     
-    
-    
-    @IBAction func CreateAccoutAction(_ sender: Any) {
-       let usernameInput = usernameTextField.text!
-        let passwordInput = passwordTextField.text!
-        //let emailInput = emailTextField.text!
-        
-        if UserBase.CKUsers.testCKConnection() {
-            if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameDoesNotExist {
-                UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput)
-                UserBase.CKUsers.saveUserBase()
-                //Popup notification - Account is created, try logging in now
-                self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
-                popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
-            }
-            else {
-                //Popup notification - Username already exists
-                popUpNotification(title: Error, message: UserNameAlreadyExists)
-            }
-        }
-        else {
-            //Popup notification - not connected to cloud server
-            popUpNotification(title: Error, message: CloudConnectionError)
-        }
+    func goToSignUp() {
+        performSegue(withIdentifier: "SignUp", sender: nil)
     }
-    
     
     func popUpNotification(title: String, message: String) {
         let popup = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
@@ -159,13 +86,10 @@ class LogInController: UIViewController {
     }
     
     let Error = "Error"
-    let UserNameAlreadyExists = "Username Already Exists"
     let UserNameDoesNotExist = "Username Does Not Exist"
     let IncorrectPassword = "Incorrect Password"
     let LoginSuccessful = "Login Successful"
     let LoggingUserIn = "Logging user in..."
-    let CreatedAccount = "Created Account"
-    let NewAccountSignIn = "Please log in."
     let CloudConnectionError = "Cannot connect to CKDB"
     
     func textFieldNoEditing(_ textfield: UITextField) {

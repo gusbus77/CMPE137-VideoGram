@@ -20,6 +20,7 @@
 		3FAD69992198AD01006277B4 /* AlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD69982198AD01006277B4 /* AlbumController.swift */; };
 		3FAD699B2198AD15006277B4 /* UploadVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD699A2198AD15006277B4 /* UploadVideoController.swift */; };
 		3FAD699E2198AD60006277B4 /* VideoFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD699D2198AD60006277B4 /* VideoFeedController.swift */; };
+		3FAD69A42198C06F006277B4 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAD69A32198C06F006277B4 /* ProfileController.swift */; };
 		5F48A0A28B41B360717F6161 /* Pods_Project_Group_4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574E8E538FD7EBE7AC503CA2 /* Pods_Project_Group_4.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		3FAD69982198AD01006277B4 /* AlbumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumController.swift; sourceTree = "<group>"; };
 		3FAD699A2198AD15006277B4 /* UploadVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoController.swift; sourceTree = "<group>"; };
 		3FAD699D2198AD60006277B4 /* VideoFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFeedController.swift; sourceTree = "<group>"; };
+		3FAD69A32198C06F006277B4 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		574E8E538FD7EBE7AC503CA2 /* Pods_Project_Group_4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Group_4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7512A168835173309301F21C /* Pods-Project Group 4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Group 4.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Group 4/Pods-Project Group 4.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 				3FAD69982198AD01006277B4 /* AlbumController.swift */,
 				3FAD699A2198AD15006277B4 /* UploadVideoController.swift */,
 				3FAD699D2198AD60006277B4 /* VideoFeedController.swift */,
+				3FAD69A32198C06F006277B4 /* ProfileController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				3DF9902A2151C650005E1CF6 /* LogInController.swift in Sources */,
 				3DF990282151C650005E1CF6 /* AppDelegate.swift in Sources */,
 				3FAD69992198AD01006277B4 /* AlbumController.swift in Sources */,
+				3FAD69A42198C06F006277B4 /* ProfileController.swift in Sources */,
 				3FAD699E2198AD60006277B4 /* VideoFeedController.swift in Sources */,
 				3FA0149B21582AB400102100 /* user.swift in Sources */,
 				3FAD699B2198AD15006277B4 /* UploadVideoController.swift in Sources */,
