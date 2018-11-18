@@ -14,7 +14,7 @@ class Video: NSObject {
     var videoID:            String = ""
     var videoName:          String = ""
     var videoDescription:   String = ""
-    var publicVid:          Bool = ""
+    var publicVid:          String = ""
 }
 
 class UploadVideo {
@@ -23,7 +23,7 @@ class UploadVideo {
     var videos: [Video] = []
     var privateCKDatabase: CKDatabase = CKContainer.default().privateCloudDatabase
     var publicCKDatabase: CKDatabase = CKContainer.default().publicCloudDatabase
-
+    
     func loadVideo() {
         let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "Video", predicate: predicate)
@@ -61,7 +61,7 @@ class UploadVideo {
                     return
                 }
             }
-            if video.publicVid == True {
+            if video.publicVid == "Yes" {
                 publicCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                     if error == nil {
                         return
@@ -71,30 +71,30 @@ class UploadVideo {
         }
     }
     
-    func uploadVideo(VideoToSave: ) {
-        let newUser = User(username: username, password: password, email: email)
-        users.append(newUser)
-    }
-    
-    func verifyUser(username: String)->LoginResults{
-        if users.contains(where: {$0.username == username.lowercased()}) {
-            return .AccountExists
-        }
-        else {
-            return .AccountDoesNotExist
-        }
-    }
-    
-    func login(username: String, password: String)->LoginResults {
-        let verification = verifyUser(username: username)
-        
-        if let user = users.first(where: {$0.username == username.lowercased()}) {
-            if verification == .UsernameExists {
-                if user.password == password {
-                    return .SuccessfulLogin
-                }
-            }
-        }
-        return .IncorrectPassword
-    }
+    //    func uploadVideo(VideoToSave: ) {
+    //        let newUser = User(username: username, password: password, email: email)
+    //        users.append(newUser)
+    //    }
+    //
+    //    func verifyUser(username: String)->LoginResults{
+    //        if users.contains(where: {$0.username == username.lowercased()}) {
+    //            return .AccountExists
+    //        }
+    //        else {
+    //            return .AccountDoesNotExist
+    //        }
+    //    }
+    //
+    //    func login(username: String, password: String)->LoginResults {
+    //        let verification = verifyUser(username: username)
+    //
+    //        if let user = users.first(where: {$0.username == username.lowercased()}) {
+    //            if verification == .UsernameExists {
+    //                if user.password == password {
+    //                    return .SuccessfulLogin
+    //                }
+    //            }
+    //        }
+    //        return .IncorrectPassword
+    //    }
 }

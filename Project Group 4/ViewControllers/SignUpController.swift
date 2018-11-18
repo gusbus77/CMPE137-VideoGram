@@ -47,8 +47,8 @@ class SignUpController: UIViewController{
         let emailInput = emailTextField.text!
         
         if UserBase.CKUsers.testCKConnection() {
-            if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameDoesNotExist {
-                UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput)
+            if UserBase.CKUsers.verifyUser(username: usernameInput) == .AccountDoesNotExist {
+                UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput, email: emailInput)
                 UserBase.CKUsers.saveUserBase()
                 //Popup notification - Account is created, try logging in now
                 self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
@@ -76,6 +76,7 @@ class SignUpController: UIViewController{
     let UserNameAlreadyExists = "Username Already Exists"
     let CreatedAccount = "Created Account"
     let NewAccountSignIn = "Please log in."
+    let CloudConnectionError = "Sign into iCloud First"
     
     func textFieldNoEditing(_ textfield: UITextField) {
         textfield.autocorrectionType = .no

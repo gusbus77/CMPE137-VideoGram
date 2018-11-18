@@ -81,7 +81,7 @@ class UserBase{
         }
     }
     
-    func addUser(usernameInput: String, passwordInput: String, emailInput: String) {
+    func addUser(username: String, password: String, email: String) {
         let newUser = User(username: username, password: password, email: email)
         users.append(newUser)
     }
@@ -99,7 +99,7 @@ class UserBase{
         let verification = verifyUser(username: username)
         
         if let user = users.first(where: {$0.username == username.lowercased()}) {
-            if verification == .UsernameExists {
+            if verification == .AccountExists {
                 if user.password == password {
                     return .SuccessfulLogin
                 }
@@ -108,7 +108,7 @@ class UserBase{
         return .IncorrectPassword
     }
     
-
+    
     //TODO
     //Add register throughu Social Media
     //Add email verification when registering new account

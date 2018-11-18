@@ -1,4 +1,4 @@
-//
+
 //  LogInViewController.swift
 //  VideoGram Project Group 4
 //
@@ -36,7 +36,7 @@ class LogInController: UIViewController {
     
     @IBAction func logInPageToSignUpPage(_ sender: UIButton) {
         self.goToSignUp()
-         print("loginpagetosignuppate")
+        print("loginpagetosignuppate")
     }
     
     @IBAction func TESTING_BUTTON(_ sender: UIButton) {
@@ -47,7 +47,7 @@ class LogInController: UIViewController {
         let passwordInput = passwordTextField.text!
         
         if UserBase.CKUsers.testCKConnection() {
-            if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameExists {
+            if UserBase.CKUsers.verifyUser(username: usernameInput) == .AccountExists {
                 let signingUserIn = UserBase.CKUsers.login(username: usernameInput, password: passwordInput)
                 if signingUserIn == .SuccessfulLogin {
                     self.goToMainPage()
@@ -69,7 +69,7 @@ class LogInController: UIViewController {
             popUpNotification(title: Error, message: CloudConnectionError)
         }
     }
-
+    
     func goToMainPage() {
         performSegue(withIdentifier: "toMainPage", sender: nil)
         // print("other function")
