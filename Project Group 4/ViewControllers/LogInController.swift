@@ -47,7 +47,7 @@ class LogInController: UIViewController {
         let passwordInput = passwordTextField.text!
         
         if UserBase.CKUsers.testCKConnection() {
-            if UserBase.CKUsers.verifyUser(username: usernameInput) == .AccountExists {
+            if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameExists {
                 let signingUserIn = UserBase.CKUsers.login(username: usernameInput, password: passwordInput)
                 if signingUserIn == .SuccessfulLogin {
                     self.goToMainPage()
@@ -85,6 +85,8 @@ class LogInController: UIViewController {
         self.present(popup, animated: true, completion:nil)
     }
     
+    
+    //ERROR MESSAGES
     let Error = "Error"
     let UserNameDoesNotExist = "Username Does Not Exist"
     let IncorrectPassword = "Incorrect Password"

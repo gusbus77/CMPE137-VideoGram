@@ -47,16 +47,23 @@ class SignUpController: UIViewController{
         let emailInput = emailTextField.text!
         
         if UserBase.CKUsers.testCKConnection() {
-            if UserBase.CKUsers.verifyUser(username: usernameInput) == .AccountDoesNotExist {
-                UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput, email: emailInput)
-                UserBase.CKUsers.saveUserBase()
-                //Popup notification - Account is created, try logging in now
-                self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
-                popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
+            if UserBase.CKUsers.checkIfUserHasAnAccount(email: emailInput) == .AccountExists {
+                //User Already Has an Account Registered
+                popUpNotification(title: Error, message: EmailHasAnAccount)
             }
             else {
-                //Popup notification - Username already exists
-                popUpNotification(title: Error, message: UserNameAlreadyExists)
+                //Check if Username is Taken
+                if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameDoesNotExist {
+                    UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput, email: emailInput)
+                    UserBase.CKUsers.saveUserBase()
+                    //Popup notification - Account is created, try logging in now
+                    self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
+                    popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
+                }
+                else {
+                    //Popup notification - Username already exists
+                    popUpNotification(title: Error, message: UserNameAlreadyExists)
+                }
             }
         }
         else {
@@ -64,6 +71,7 @@ class SignUpController: UIViewController{
             popUpNotification(title: Error, message: CloudConnectionError)
         }
     }
+    
     
     
     func popUpNotification(title: String, message: String) {
@@ -77,6 +85,7 @@ class SignUpController: UIViewController{
     let CreatedAccount = "Created Account"
     let NewAccountSignIn = "Please log in."
     let CloudConnectionError = "Sign into iCloud First"
+    let EmailHasAnAccount = "This Email Already Has An Account"
     
     func textFieldNoEditing(_ textfield: UITextField) {
         textfield.autocorrectionType = .no

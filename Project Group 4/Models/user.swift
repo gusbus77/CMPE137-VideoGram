@@ -10,6 +10,8 @@ import CloudKit
 enum LoginResults {
     case AccountDoesNotExist
     case AccountExists
+    case UsernameExists
+    case UsernameDoesNotExist
     case IncorrectPassword
     case SuccessfulLogin
 }
@@ -17,7 +19,7 @@ struct User {
     var username: String = ""
     var password: String = ""
     var email: String = ""
-    //var userID: Int = ""
+    //var uniqueuserID: Int = ""
 }
 
 class UserBase{
@@ -26,7 +28,6 @@ class UserBase{
     var users: [User] = []
     var privateCKDatabase: CKDatabase = CKContainer.default().privateCloudDatabase
     var publicCKDatabase: CKDatabase = CKContainer.default().publicCloudDatabase
-    var sharedCKDatabase: CKDatabase = CKContainer.default().sharedCloudDatabase
     
     static var uniqueID = 0
     
@@ -87,15 +88,25 @@ class UserBase{
         users.append(newUser)
     }
     
+    
     func verifyUser(username: String)->LoginResults{
         if users.contains(where: {$0.username == username.lowercased()}) {
+            return .UsernameExists
+        }
+        else {
+            return .UsernameDoesNotExist
+        }
+    }
+    
+    func checkIfUserHasAnAccount(email: String)->LoginResults{
+        if users.contains(where: {$0.email == email.lowercased()}) {
             return .AccountExists
         }
         else {
             return .AccountDoesNotExist
         }
     }
-    
+
     func login(username: String, password: String)->LoginResults {
         let verification = verifyUser(username: username)
         
