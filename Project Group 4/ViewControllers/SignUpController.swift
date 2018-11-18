@@ -13,7 +13,7 @@ class SignUpController: UIViewController{
         super.viewDidLoad()
     }
     
-    
+     
     @IBOutlet weak var registerButton: UIButton!
     
     @IBOutlet weak var BackButton: UIButton!

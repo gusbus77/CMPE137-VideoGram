@@ -19,6 +19,7 @@ struct User {
     var email: String = ""
     //var userID: Int = ""
 }
+
 class UserBase{
     static let CKUsers = UserBase()
     
