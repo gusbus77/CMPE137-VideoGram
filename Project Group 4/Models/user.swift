@@ -111,7 +111,7 @@ class UserBase{
         let verification = verifyUser(username: username)
         
         if let user = users.first(where: {$0.username == username.lowercased()}) {
-            if verification == .AccountExists {
+            if verification == .UsernameExists {
                 if user.password == password {
                     return .SuccessfulLogin
                 }

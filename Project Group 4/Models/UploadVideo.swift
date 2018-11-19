@@ -11,22 +11,29 @@ import UIKit
 import CloudKit
 
 class Video: NSObject {
-    var videoID:            String = ""
+    var username:           String = ""
     var videoName:          String = ""
     var videoDescription:   String = ""
-    var publicVid:          String = ""
+    var videoThumbnail:     String = ""
+    var publicVid:          String = "" // might change to bool
+    //var vidData:            CKAsset, some type of path
 }
 
-class UploadVideo {
+class UploadVideo: NSObject {
     static let CKVideo = UploadVideo()
     
+    //Creates an array of Video class (class because we need inheritance)
     var videos: [Video] = []
+    
     var privateCKDatabase: CKDatabase = CKContainer.default().privateCloudDatabase
     var publicCKDatabase: CKDatabase = CKContainer.default().publicCloudDatabase
     
-    func loadVideo() {
+    //Loads and returns an array of videos
+    func loadVideo() -> [Video] {
         let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "Video", predicate: predicate)
+        var gotVids = [Video]()
+        let loadingVid = Video()
         privateCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
             if error == nil {
                 guard let records = records else {
@@ -34,34 +41,36 @@ class UploadVideo {
                     return
                 }
                 for record in records {
-                    let videoID = record.object(forKey: "videoID") as! String
-                    let videoName = record.object(forKey: "videoName") as! String
-                    let videoDescription = record.object(forKey: "videoDescription") as! String
-                    let publicVid = record.object(forKey: "publicVid") as! Bool
-                    //self.addUser(username: username, password: password, email: email)
+                    loadingVid.username = record.object(forKey: "username") as! String
+                    loadingVid.videoName = record.object(forKey: "videoName") as! String
+                    loadingVid.videoDescription = record.object(forKey: "videoDescription") as! String
+                    loadingVid.videoThumbnail = record.object(forKey: "videoThumbnail") as! String
+                    loadingVid.publicVid = record.object(forKey: "publicVid") as! String
+                    gotVids.append(loadingVid)
                 }
             }
             else {
                 print (error?.localizedDescription ?? "Error")
             }
-            
         }
+        return gotVids
     }
     
     func saveVideo() {
         let record = CKRecord(recordType: "Video")
         
         for video in videos {
-            record.setObject(video.videoID as CKRecordValue?, forKey: "videoID")
+            record.setObject(video.username as CKRecordValue?, forKey: "username")
             record.setObject(video.videoName as CKRecordValue?, forKey: "videoName")
             record.setObject(video.videoDescription as CKRecordValue?, forKey: "videoDescription")
+            record.setObject(video.videoThumbnail as CKRecordValue?, forKey: "videoThumbnail")
             record.setObject(video.publicVid as CKRecordValue?, forKey: "publicVid")
             privateCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                 if error == nil {
                     return
                 }
             }
-            if video.publicVid == "Yes" {
+            if video.publicVid == "Yes" { //might change to bool
                 publicCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                     if error == nil {
                         return
@@ -71,30 +80,14 @@ class UploadVideo {
         }
     }
     
-    //    func uploadVideo(VideoToSave: ) {
-    //        let newUser = User(username: username, password: password, email: email)
-    //        users.append(newUser)
-    //    }
-    //
-    //    func verifyUser(username: String)->LoginResults{
-    //        if users.contains(where: {$0.username == username.lowercased()}) {
-    //            return .AccountExists
-    //        }
-    //        else {
-    //            return .AccountDoesNotExist
-    //        }
-    //    }
-    //
-    //    func login(username: String, password: String)->LoginResults {
-    //        let verification = verifyUser(username: username)
-    //
-    //        if let user = users.first(where: {$0.username == username.lowercased()}) {
-    //            if verification == .UsernameExists {
-    //                if user.password == password {
-    //                    return .SuccessfulLogin
-    //                }
-    //            }
-    //        }
-    //        return .IncorrectPassword
-    //    }
+    func uploadVideo(username: String, videoName: String, videoDescription: String, videoThumbnail: String, publicVid: String) { //, videoData: CKAsset) {
+        let newVideo: Video = Video()
+        newVideo.username = username
+        newVideo.videoName = videoName
+        newVideo.videoDescription = videoDescription
+        newVideo.videoThumbnail = videoThumbnail
+        newVideo.publicVid = publicVid
+        videos.append(newVideo)
+    }
+    
 }
