@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 import MobileCoreServices
 
 class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -23,18 +24,26 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     //var selec
     @IBAction func selectVideo(_ sender: Any) {
         videoPicker.sourceType = .photoLibrary
+        videoPicker.mediaTypes = ["public.movie"];
         videoPicker.delegate = self
-        
         self.present(videoPicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let video = info[UIImagePickerControllerMediaType] as! UIImage
+    @IBAction func uploadVideo(_ sender: Any) {
+        let description = vidDescriptionTextField.text
         
-        previewThumbnail.image = video
-        
-        picker.dismiss(animated: true, completion: nil)
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
+            let video = NSData(contentsOf: videoURL)
+            let videoImg = AVAsset(url: videoURL)
+            let previewThumbnail = videoImg.getThumbnail
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -50,5 +59,24 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
         guard let text = vidDescriptionTextField.text else {return true}
         let count = text.count + string.count - range.length
         return count <= 240
+    }
+}
+extension AVAsset {
+    var getThumbnail:UIImage? {
+        let assetImageGenerator = AVAssetImageGenerator(asset: self)
+        assetImageGenerator.appliesPreferredTrackTransform = true
+        
+        var time = self.duration
+        time.value = min(time.value, 2)
+        
+        do {
+            let imageReference = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage.init(cgImage: imageReference)
+            
+            return thumbnail
+        } catch {
+            return nil
+        }
+        
     }
 }

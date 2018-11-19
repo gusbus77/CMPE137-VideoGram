@@ -14,7 +14,7 @@ import AVFoundation
 
 class VideoFeedController: UIViewController{
     
-    var videos: [Video] = UploadVideo().loadVideo()
+    var videos: [Video] = UploadVideo().loadPublicVideos()
     var player = AVPlayer()
     var playerViewController = AVPlayerViewController()
     

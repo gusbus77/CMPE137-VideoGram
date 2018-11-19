@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import CloudKit
 
+//Not sure if this is per user session, or to db in general D: need to test
+
 class Video: NSObject {
     var username:           String = ""
     var videoName:          String = ""
@@ -27,14 +29,70 @@ class UploadVideo: NSObject {
     
     var privateCKDatabase: CKDatabase = CKContainer.default().privateCloudDatabase
     var publicCKDatabase: CKDatabase = CKContainer.default().publicCloudDatabase
+    var sharedCKDatabase: CKDatabase = CKContainer.default().sharedCloudDatabase
     
-    //Loads and returns an array of videos
-    func loadVideo() -> [Video] {
+    //Loads and returns an array of user's videos
+    func loadPrivateVideos() -> [Video] {
         let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "Video", predicate: predicate)
         var gotVids = [Video]()
         let loadingVid = Video()
         privateCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
+            if error == nil {
+                guard let records = records else {
+                    print ("No Records")
+                    return
+                }
+                for record in records {
+                    loadingVid.username = record.object(forKey: "username") as! String
+                    loadingVid.videoName = record.object(forKey: "videoName") as! String
+                    loadingVid.videoDescription = record.object(forKey: "videoDescription") as! String
+                    loadingVid.videoThumbnail = record.object(forKey: "videoThumbnail") as! String
+                    loadingVid.publicVid = record.object(forKey: "publicVid") as! String
+                    gotVids.append(loadingVid)
+                }
+            }
+            else {
+                print (error?.localizedDescription ?? "Error")
+            }
+        }
+        return gotVids
+    }
+    //Loads and returns an array of public videos
+    func loadPublicVideos() -> [Video] {
+        let predicate = NSPredicate(value:true)
+        let query = CKQuery(recordType: "Video", predicate: predicate)
+        var gotVids = [Video]()
+        let loadingVid = Video()
+        publicCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
+            if error == nil {
+                guard let records = records else {
+                    print ("No Records")
+                    return
+                }
+                for record in records {
+                    loadingVid.username = record.object(forKey: "username") as! String
+                    loadingVid.videoName = record.object(forKey: "videoName") as! String
+                    loadingVid.videoDescription = record.object(forKey: "videoDescription") as! String
+                    loadingVid.videoThumbnail = record.object(forKey: "videoThumbnail") as! String
+                    loadingVid.publicVid = record.object(forKey: "publicVid") as! String
+                    gotVids.append(loadingVid)
+                }
+            }
+            else {
+                print (error?.localizedDescription ?? "Error")
+            }
+        }
+        return gotVids
+    }
+    
+    //Loads and returns an array of shared videos for album view (will work on this)
+    func loadSharedVideos() -> [Video] {
+        let predicate = NSPredicate(value:true)
+        let query = CKQuery(recordType: "Video", predicate: predicate)
+        var gotVids = [Video]()
+        let loadingVid = Video()
+        sharedCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
             if error == nil {
                 guard let records = records else {
                     print ("No Records")
