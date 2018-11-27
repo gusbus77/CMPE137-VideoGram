@@ -8,10 +8,22 @@
 
 import Foundation
 import UIKit
+import FBSDKLoginKit
 
 class HomePageController: UIViewController {
+    
+    var currentUser:String = ""
+    var currentUserPicture:String = ""
+    var currentUserName:String = ""
+    @IBOutlet weak var nameLabel: UILabel?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("printing current user on home page controller")
+        print(currentUser)
+        nameLabel?.text = "Welcome " + currentUserName
     }
     
     @IBOutlet var albums: UIButton!
@@ -19,8 +31,11 @@ class HomePageController: UIViewController {
     @IBOutlet var shareVideo: UIButton!
     
     @IBAction func logOut(_ sender: UIButton) {
+        print("logout works")
         self.logOut()
     }
+    
+    
     @IBAction func goToAlbums(_ sender: UIButton) {
         self.goToAlbum()
     }
@@ -37,7 +52,10 @@ class HomePageController: UIViewController {
     
     
     func logOut() {
+        FBSDKLoginManager().logOut()
+        print("logout works again")
         performSegue(withIdentifier: "ToLogInPage", sender: nil)
+        //self.navigationController?.popToRootViewController(animated: true)
     }
     func goToAlbum() {
         performSegue(withIdentifier: "GoToAlbums", sender: nil)

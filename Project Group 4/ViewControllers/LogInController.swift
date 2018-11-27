@@ -7,14 +7,34 @@
 //
 import UIKit
 import FBSDKLoginKit
-class LogInController: UIViewController {
+class LogInController: UIViewController, FBSDKLoginButtonDelegate {
+    
+    var fbToken = false
+    var userEmail:String = ""
+    var userPicture:String = ""
+    var userName:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let loginButton = FBSDKLoginButton()
+        loginButton.delegate = self
         view.addSubview(loginButton)
-        loginButton.frame = CGRect(x: 16, y: 50, width: view.frame.width - 32, height: 50)
+        loginButton.frame = CGRect(x: 64, y: 555, width: view.frame.width - 128, height: 50)
     }
+    
+    override func viewDidAppear(_ animated:Bool) {
+        //super.viewDidAppear(false)
+        if(FBSDKAccessToken.current() != nil && fbToken == true) {
+            print("performing Segue")
+            self.performSegue(withIdentifier: "toMainPage", sender: self)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     
     @IBOutlet var passwordTextField: UITextField! {
         didSet{
@@ -42,6 +62,74 @@ class LogInController: UIViewController {
     @IBAction func TESTING_BUTTON(_ sender: UIButton) {
         self.goToMainPage()
     }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("logout successfull")
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        print("loginButton Function Initiated")
+        if ((error) != nil) {
+            NSLog("Process Error")
+        }
+        else if result.isCancelled {
+            NSLog("Cancelled")
+        }
+        else {
+            print("Login success")
+            self.getInfo()
+            fbToken = true
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "toMainPage") {
+            print("PREPARE FUNCTION TRIGGERED")
+            let vc1 = segue.destination as! UINavigationController
+            let vc: HomePageController = vc1.topViewController as! HomePageController
+            vc.currentUser = userEmail
+            vc.currentUserPicture = userPicture
+            vc.currentUserName = userName
+ }
+        
+    }
+    
+    func getInfo(){
+        print("getInfo is working")
+        
+        let info = ["fields": "email, first_name, last_name, picture.type(large)"]
+        FBSDKGraphRequest(graphPath: "me", parameters: info).start {
+            (connection, result, error) -> Void in
+            if error != nil {
+                print("error")
+                return
+            }
+            
+            if let result = result as? [String: AnyObject],
+                let email: String = result["email"] as! String?
+            {
+                print(email)
+                self.userEmail = email
+            }
+            
+            if let result = result as? [String: AnyObject],
+                let picture = result["picture"] as? NSDictionary, let data = picture["data"] as? NSDictionary,
+                let url = data["url"] as? String {
+                print(url)
+                self.userPicture = url
+            }
+            
+            if let result = result as? [String: AnyObject],
+                let user = result["first_name"] as! String?
+            {
+                print(user)
+                self.userName = user
+            }
+            
+            
+        }
+    }
+    
     @IBAction func signInAction(_ sender: UIButton) {
         let usernameInput = usernameTextField.text!
         let passwordInput = passwordTextField.text!
@@ -71,6 +159,7 @@ class LogInController: UIViewController {
     }
     
     func goToMainPage() {
+        print("Go to main page")
         performSegue(withIdentifier: "toMainPage", sender: nil)
         // print("other function")
     }

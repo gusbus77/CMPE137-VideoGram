@@ -48,12 +48,12 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb688579924856334</string>
+				<string>fb1301435746675046</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>688579924856334</string>
+	<string>1301435746675046</string>
 	<key>FacebookDisplayName</key>
 	<string>Videogram</string>
 	<key>LSApplicationQueriesSchemes</key>
