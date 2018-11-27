@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 import UIKit
 
 class FeedTableViewCell: UITableViewCell {
@@ -24,7 +25,7 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func updateTableViewCell() {
-        thumbnailImageView.image = UIImage(named: video.videoThumbnail)
+//        thumbnailImageView.image = UIImage(named: video.videoThumbnail)
         thumbnailImageView.layer.cornerRadius = 8.0
         thumbnailImageView.layer.masksToBounds = true
         
@@ -32,3 +33,5 @@ class FeedTableViewCell: UITableViewCell {
         videoDescriptionLabel.text = video.videoDescription
     }
 }
+
+

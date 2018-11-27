@@ -40,12 +40,12 @@ class VideoFeedController: UIViewController , UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    //func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //tableView.deselectRow(at: <#T##IndexPath#>, animated: true)
-        //playSelectedVideo(at: indexPath)
-    //}
-    
-    //func playSelectedVideo(at indexPath: IndexPath) {
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: <#T##IndexPath#>, animated: true)
+//        playSelectedVideo(at: indexPath)
+//    }
+//
+//    func playSelectedVideo(at indexPath: IndexPath) {
 //        let videoToPlay = videos[indexPath.row]
 //        let vidPath = Bundle.main.path(forResource: videoToPlay.videoName, ofType: "mp4")
 //        player = AVPlayer(url: URL)
@@ -54,6 +54,6 @@ class VideoFeedController: UIViewController , UITableViewDelegate, UITableViewDa
 //        self.present(playerViewController, animated: true, completion: {
 //            self.playerViewController.player?.play()
 //        })
-    //}
+//    }
     
 } //end of VideoFeedController

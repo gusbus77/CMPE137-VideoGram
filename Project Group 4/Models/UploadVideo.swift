@@ -14,11 +14,11 @@ import CloudKit
 
 class Video: NSObject {
     var username:           String = ""
-    var videoName:          String = ""
+    var videoID:            Int = 0
     var videoDescription:   String = ""
-    var videoThumbnail:     String = ""
-    var publicVid:          String = "" // might change to bool
-    
+    var publicVid:          Int    = 0 //0: False, 1: True
+    var videoImg:           CKAsset?
+    var videoData:          CKAsset?
 
 }
 
@@ -46,10 +46,11 @@ class UploadVideo: NSObject {
                 }
                 for record in records {
                     loadingVid.username = record.object(forKey: "username") as! String
-                    loadingVid.videoName = record.object(forKey: "videoName") as! String
+                    loadingVid.videoID = record.object(forKey: "videoID") as! Int
                     loadingVid.videoDescription = record.object(forKey: "videoDescription") as! String
-                    loadingVid.videoThumbnail = record.object(forKey: "videoThumbnail") as! String
-                    loadingVid.publicVid = record.object(forKey: "publicVid") as! String
+                    loadingVid.publicVid = record.object(forKey: "publicVid") as! Int
+                    loadingVid.videoImg = record.object(forKey: "vidImg") as? CKAsset
+                    loadingVid.videoData = record.object(forKey: "videoData") as? CKAsset
                     gotVids.append(loadingVid)
                 }
             }
@@ -73,10 +74,11 @@ class UploadVideo: NSObject {
                 }
                 for record in records {
                     loadingVid.username = record.object(forKey: "username") as! String
-                    loadingVid.videoName = record.object(forKey: "videoName") as! String
+                    loadingVid.videoID = record.object(forKey: "videoID") as! Int
                     loadingVid.videoDescription = record.object(forKey: "videoDescription") as! String
-                    loadingVid.videoThumbnail = record.object(forKey: "videoThumbnail") as! String
-                    loadingVid.publicVid = record.object(forKey: "publicVid") as! String
+                    loadingVid.publicVid = record.object(forKey: "publicVid") as! Int
+                    loadingVid.videoImg = record.object(forKey: "vidImg") as? CKAsset
+                    loadingVid.videoData = record.object(forKey: "videoData") as? CKAsset
                     gotVids.append(loadingVid)
                 }
             }
@@ -101,10 +103,11 @@ class UploadVideo: NSObject {
                 }
                 for record in records {
                     loadingVid.username = record.object(forKey: "username") as! String
-                    loadingVid.videoName = record.object(forKey: "videoName") as! String
+                    loadingVid.videoID = record.object(forKey: "videoID") as! Int
                     loadingVid.videoDescription = record.object(forKey: "videoDescription") as! String
-                    loadingVid.videoThumbnail = record.object(forKey: "videoThumbnail") as! String
-                    loadingVid.publicVid = record.object(forKey: "publicVid") as! String
+                    loadingVid.publicVid = record.object(forKey: "publicVid") as! Int
+                    loadingVid.videoImg = record.object(forKey: "vidImg") as? CKAsset
+                    loadingVid.videoData = record.object(forKey: "videoData") as? CKAsset
                     gotVids.append(loadingVid)
                 }
             }
@@ -120,16 +123,17 @@ class UploadVideo: NSObject {
         
         for video in videos {
             record.setObject(video.username as CKRecordValue?, forKey: "username")
-            record.setObject(video.videoName as CKRecordValue?, forKey: "videoName")
+            record.setObject(video.videoID as CKRecordValue?, forKey: "videoID")
             record.setObject(video.videoDescription as CKRecordValue?, forKey: "videoDescription")
-            record.setObject(video.videoThumbnail as CKRecordValue?, forKey: "videoThumbnail")
             record.setObject(video.publicVid as CKRecordValue?, forKey: "publicVid")
+            record.setObject(video.videoImg as CKRecordValue?, forKey: "vidImg")
+            record.setObject(video.videoData as CKRecordValue?, forKey: "videoData")
             privateCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                 if error == nil {
                     return
                 }
             }
-            if video.publicVid == "Yes" { //might change to bool
+            if video.publicVid == 1 { //0: False, 1: True
                 publicCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                     if error == nil {
                         return
@@ -139,13 +143,14 @@ class UploadVideo: NSObject {
         }
     }
     
-    func uploadVideo(username: String, videoName: String, videoDescription: String, videoThumbnail: String, publicVid: String) { //, videoData: CKAsset) {
+    func uploadVideo(username: String, videoID: Int, videoDescription: String, publicVid: Int, imgData: CKAsset, vidData: CKAsset) {
         let newVideo: Video = Video()
         newVideo.username = username
-        newVideo.videoName = videoName
+        newVideo.videoID = videoID
         newVideo.videoDescription = videoDescription
-        newVideo.videoThumbnail = videoThumbnail
         newVideo.publicVid = publicVid
+        newVideo.videoImg = imgData
+        newVideo.videoData = vidData
         videos.append(newVideo)
     }
     

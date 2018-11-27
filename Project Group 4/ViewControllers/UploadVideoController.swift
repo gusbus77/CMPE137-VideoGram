@@ -13,6 +13,10 @@ import CloudKit
 import MobileCoreServices
 
 class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    var vidIDCounter: Int = 0
+    var vidData: CKAsset!
+    var imgData: CKAsset!
+    
     @IBOutlet weak var selectVideoButton : UIButton!
     
     @IBOutlet weak var vidDescriptionTextField : UITextField!
@@ -30,23 +34,45 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
         self.present(videoPicker, animated: true, completion: nil)
     }
     
-    @IBAction func uploadVideo(_ sender: Any) {
-        let description = vidDescriptionTextField.text
-        
-        
+    @IBAction func uploadVideoButton(_ sender: Any) {
+        UploadVideo.CKVideo.saveVideo()
+        popUpNotification(title: Success, message: Uploaded)
+        _ = navigationController?.popToRootViewController(animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            let videoData = NSData(contentsOf: videoURL)
-            //let videoAsset = CKAsset(videoURL)
+        if let vidURL = info[UIImagePickerControllerMediaURL] as? URL {
+            let videoImg = AVAsset(url: vidURL)
+            let imgThumbnail = videoImg.getThumbnail
+            previewThumbnail.image = imgThumbnail
             
-            let videoImg = AVAsset(url: videoURL)
-            let previewThumbnail = videoImg.getThumbnail
+            let imgURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+                .appendingPathComponent("tempVid", isDirectory: false)
+                .appendingPathExtension("jpg")
+            if let data = UIImageJPEGRepresentation(imgThumbnail!, 0.8) {
+                do {
+                    try data.write(to: imgURL)
+                } catch {
+                    popUpNotification(title: Error, message: CannotGetThumbnailUrl)
+                }
+            }
+            
+            vidData = CKAsset(fileURL: vidURL)
+            imgData = CKAsset(fileURL: imgURL)
+            let description = vidDescriptionTextField.text!
+            
+            UploadVideo.CKVideo.uploadVideo(username: "mlauzon", videoID: vidIDCounter, videoDescription: description, publicVid: 1, imgData: imgData, vidData: vidData)
+            vidIDCounter = vidIDCounter + 1
+            
+            do {
+                try FileManager.default.removeItem(at: imgURL)
+            } catch {
+                popUpNotification(title: Error, message: CannotClearTmpDir)
+            }
+            
             picker.dismiss(animated: true, completion: nil)
         }
     }
-
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -63,6 +89,18 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
         let count = text.count + string.count - range.length
         return count <= 240
     }
+
+    func popUpNotification(title: String, message: String) {
+        let popup = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        popup.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(popup, animated: true, completion:nil)
+    }
+    
+    let Error = "Error"
+    let Success = "Success"
+    let CannotGetThumbnailUrl = "Cannot get thumbnail URL"
+    let CannotClearTmpDir = "Cannot Clear Temporary Directory"
+    let Uploaded = "Video Successfully Uploaded"
 }
 
 extension AVAsset {
@@ -84,3 +122,5 @@ extension AVAsset {
         
     }
 }
+
+
