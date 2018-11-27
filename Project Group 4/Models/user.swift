@@ -68,6 +68,10 @@ class UserBase{
         }
     }
     
+    func willthisExist() {
+        
+    }
+    
     func saveUserBase() {
         let record = CKRecord(recordType: "User")
         
