@@ -18,7 +18,8 @@ class Video: NSObject {
     var videoDescription:   String = ""
     var videoThumbnail:     String = ""
     var publicVid:          String = "" // might change to bool
-    //var vidData:            CKAsset, some type of path
+    
+
 }
 
 class UploadVideo: NSObject {

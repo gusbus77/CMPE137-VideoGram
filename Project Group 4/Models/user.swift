@@ -35,7 +35,7 @@ class UserBase{
     }
     
     func testCKConnection() -> Bool {
-        if let _ = FileManager.default.ubiquityIdentityToken {
+        if FileManager.default.ubiquityIdentityToken != nil {
             return true
         }
         else {

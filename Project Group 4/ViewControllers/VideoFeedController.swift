@@ -12,7 +12,7 @@ import AVKit
 import AVFoundation
 
 
-class VideoFeedController: UIViewController{
+class VideoFeedController: UIViewController , UITableViewDelegate, UITableViewDataSource{
     
     var videos: [Video] = UploadVideo().loadPublicVideos()
     var player = AVPlayer()
@@ -21,8 +21,8 @@ class VideoFeedController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        //self.feedTableView.dataSource = self , need to include UITableViewDataSource
-        //self.feedTableView.delegate   = self , need to include UITableViewDelegate
+        self.feedTableView.dataSource = self
+        self.feedTableView.delegate   = self
     }
     
     @IBOutlet weak var feedTableView: UITableView!
@@ -40,12 +40,12 @@ class VideoFeedController: UIViewController{
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //tableView.deselectRow(at: <#T##IndexPath#>, animated: true)
-        playSelectedVideo(at: indexPath)
-    }
+        //playSelectedVideo(at: indexPath)
+    //}
     
-    func playSelectedVideo(at indexPath: IndexPath) {
+    //func playSelectedVideo(at indexPath: IndexPath) {
 //        let videoToPlay = videos[indexPath.row]
 //        let vidPath = Bundle.main.path(forResource: videoToPlay.videoName, ofType: "mp4")
 //        player = AVPlayer(url: URL)
@@ -54,6 +54,6 @@ class VideoFeedController: UIViewController{
 //        self.present(playerViewController, animated: true, completion: {
 //            self.playerViewController.player?.play()
 //        })
-    }
+    //}
     
 } //end of VideoFeedController

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import CloudKit
 import MobileCoreServices
 
 class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -32,17 +33,19 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     @IBAction func uploadVideo(_ sender: Any) {
         let description = vidDescriptionTextField.text
         
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            let video = NSData(contentsOf: videoURL)
+            let videoData = NSData(contentsOf: videoURL)
+            //let videoAsset = CKAsset(videoURL)
+            
             let videoImg = AVAsset(url: videoURL)
             let previewThumbnail = videoImg.getThumbnail
             picker.dismiss(animated: true, completion: nil)
         }
     }
-    
 
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -61,6 +64,7 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
         return count <= 240
     }
 }
+
 extension AVAsset {
     var getThumbnail:UIImage? {
         let assetImageGenerator = AVAssetImageGenerator(asset: self)
