@@ -35,7 +35,7 @@ class UploadVideo: NSObject {
     //Loads and returns an array of user's videos
     func loadPrivateVideos() -> [Video] {
         let predicate = NSPredicate(value:true)
-        let query = CKQuery(recordType: "Video", predicate: predicate)
+        let query = CKQuery(recordType: "Videos", predicate: predicate)
         var gotVids = [Video]()
         let loadingVid = Video()
         privateCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
@@ -62,8 +62,10 @@ class UploadVideo: NSObject {
     }
     //Loads and returns an array of public videos
     func loadPublicVideos() -> [Video] {
+        //Predicate needs to Query all entries where publicVid == 1
         let predicate = NSPredicate(value:true)
-        let query = CKQuery(recordType: "Video", predicate: predicate)
+        let query = CKQuery(recordType: "Videos", predicate: predicate)
+        
         var gotVids = [Video]()
         let loadingVid = Video()
         publicCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
@@ -92,7 +94,7 @@ class UploadVideo: NSObject {
     //Loads and returns an array of shared videos for album view (will work on this)
     func loadSharedVideos() -> [Video] {
         let predicate = NSPredicate(value:true)
-        let query = CKQuery(recordType: "Video", predicate: predicate)
+        let query = CKQuery(recordType: "Videos", predicate: predicate)
         var gotVids = [Video]()
         let loadingVid = Video()
         sharedCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
@@ -119,7 +121,7 @@ class UploadVideo: NSObject {
     }
     
     func saveVideo() {
-        let record = CKRecord(recordType: "Video")
+        let record = CKRecord(recordType: "Videos")
         
         for video in videos {
             record.setObject(video.username as CKRecordValue?, forKey: "username")

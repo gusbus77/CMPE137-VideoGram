@@ -37,7 +37,7 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     @IBAction func uploadVideoButton(_ sender: Any) {
         UploadVideo.CKVideo.saveVideo()
         popUpNotification(title: Success, message: Uploaded)
-        _ = navigationController?.popToRootViewController(animated: true)
+        performSegue(withIdentifier: "toMainPage", sender: self)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
