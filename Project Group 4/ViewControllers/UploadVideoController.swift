@@ -11,11 +11,25 @@ import UIKit
 import AVFoundation
 import CloudKit
 import MobileCoreServices
+import FBSDKLoginKit
 
 class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var vidIDCounter: Int = 0
     var vidData: CKAsset!
     var imgData: CKAsset!
+    
+    
+    @IBAction func logOut(_ sender: UIButton) {
+        print("logout works")
+        self.logOut()
+    }
+    
+    func logOut() {
+        FBSDKLoginManager().logOut()
+        print("logout works again")
+        performSegue(withIdentifier: "ToLogInPage", sender: nil)
+        //self.navigationController?.popToRootViewController(animated: true)
+    }
     
     @IBOutlet weak var selectVideoButton : UIButton!
     
