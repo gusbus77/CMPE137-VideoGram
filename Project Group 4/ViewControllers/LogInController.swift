@@ -47,7 +47,7 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
     
-    @IBOutlet var test: UIButton!
+
     
     @IBOutlet var signInButton: UIButton!
     
@@ -59,9 +59,7 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
         print("loginpagetosignuppate")
     }
     
-    @IBAction func TESTING_BUTTON(_ sender: UIButton) {
-        self.goToMainPage()
-    }
+ 
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("logout successfull")
@@ -82,11 +80,11 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "toMainPage") {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "GoToProfile") {
             print("PREPARE FUNCTION TRIGGERED")
             let vc1 = segue.destination as! UINavigationController
-            let vc: HomePageController = vc1.topViewController as! HomePageController
+            let vc: ProfileController = vc1.topViewController as! ProfileController
             vc.currentUser = userEmail
             vc.currentUserPicture = userPicture
             vc.currentUserName = userName

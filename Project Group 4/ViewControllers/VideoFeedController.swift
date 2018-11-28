@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AVKit
 import AVFoundation
+import FBSDKLoginKit
 
 
 class VideoFeedController: UIViewController , UITableViewDelegate, UITableViewDataSource{
@@ -23,6 +24,19 @@ class VideoFeedController: UIViewController , UITableViewDelegate, UITableViewDa
     
         self.feedTableView.dataSource = self
         self.feedTableView.delegate   = self
+    }
+    
+    
+    @IBAction func logOut(_ sender: UIButton) {
+        print("logout works")
+        self.logOut()
+    }
+    
+    func logOut() {
+        FBSDKLoginManager().logOut()
+        print("logout works again")
+        performSegue(withIdentifier: "ToLogInPage", sender: nil)
+        //self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBOutlet weak var feedTableView: UITableView!
