@@ -35,7 +35,7 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     
     @IBOutlet weak var vidDescriptionTextField : UITextField!
     
-    @IBOutlet weak var uploadButton : UIButton!
+    @IBOutlet weak var uploadButton : UIBarButtonItem!
     
     @IBOutlet weak var previewThumbnail: UIImageView!
     
@@ -51,7 +51,7 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     @IBAction func uploadVideoButton(_ sender: Any) {
         UploadVideo.CKVideo.saveVideo()
         popUpNotification(title: Success, message: Uploaded)
-        performSegue(withIdentifier: "toMainPage", sender: self)
+        performSegue(withIdentifier: "GoToFeed", sender: self)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
