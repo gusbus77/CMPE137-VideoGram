@@ -555,7 +555,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Logout" id="On2-Ds-1Kc">
                                             <connections>
                                                 <action selector="logOut:" destination="5Zb-8x-EA0" id="amv-40-XER"/>
-                                                <segue destination="BYZ-38-t0r" kind="show" identifier="ProfileLogOut4" id="5yn-Xb-X3D"/>
+                                                <segue destination="BYZ-38-t0r" kind="show" identifier="profileLogOut4" id="5yn-Xb-X3D"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Upload" id="D31-AR-ofA">

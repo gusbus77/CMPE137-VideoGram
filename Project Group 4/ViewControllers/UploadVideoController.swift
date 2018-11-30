@@ -24,6 +24,13 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
         self.logOut()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "profileLogOut4") {
+            print("PREPARE FUNCTION TRIGGERED IN PROFILE CONTROLLER")
+            FBSDKLoginManager().logOut()
+        }
+    }
+    
     func logOut() {
         FBSDKLoginManager().logOut()
         print("logout works again")
