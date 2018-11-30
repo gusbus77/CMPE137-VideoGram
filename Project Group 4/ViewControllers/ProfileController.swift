@@ -14,15 +14,35 @@ class ProfileController: UIViewController {
     var currentUser:String = ""
     var currentUserPicture:String = ""
     var currentUserName:String = ""
+    @IBOutlet weak var profilePicture: UIImageView!
     
+    @IBOutlet weak var nameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("printing current user on home page controller")
+        /*print("printing current user on home page controller")
         print(currentUser)
+        nameLabel?.text = currentUser
+        do {
+            let url = URL(string: currentUserPicture)
+            let data = try Data(contentsOf: url!)
+            self.profilePicture.image = UIImage(data: data)
+            profilePicture.layer.borderWidth = 1
+            profilePicture.layer.masksToBounds = false
+            profilePicture.layer.borderColor = UIColor.black.cgColor
+            profilePicture.layer.cornerRadius = profilePicture.frame.height/2
+            profilePicture.clipsToBounds = true
+        }
+        catch{
+            print("error")
+        }
        // nameLabel?.text = "Welcome " + currentUserName
+ */
     }
+    
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "profileLogOut") {
