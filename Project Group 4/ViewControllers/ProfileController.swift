@@ -24,6 +24,12 @@ class ProfileController: UIViewController {
        // nameLabel?.text = "Welcome " + currentUserName
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "profileLogOut") {
+            print("PREPARE FUNCTION TRIGGERED IN PROFILE CONTROLLER")
+            FBSDKLoginManager().logOut()
+        }
+    }
     @IBAction func logOut(_ sender: UIButton) {
         print("logout works")
         self.logOut()
