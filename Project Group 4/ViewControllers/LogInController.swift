@@ -19,8 +19,12 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
         let loginButton = FBSDKLoginButton()
         loginButton.delegate = self
         view.addSubview(loginButton)
-        loginButton.frame = CGRect(x: 64, y: 555, width: view.frame.width - 128, height: 50)
+        loginButton.frame = CGRect(x: 20, y: 640, width: view.frame.width - 40, height: 50)
+        //loginButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        //loginButton.layer.cornerRadius = signInButton.frame.height/2
     }
+    
+    
     
     override func viewDidAppear(_ animated:Bool) {
         //super.viewDidAppear(false)
@@ -39,19 +43,46 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet var passwordTextField: UITextField! {
         didSet{
             textFieldNoEditing(passwordTextField)
+            passwordTextField.borderStyle = .none
+            let line = UIView()
+            let width = CGFloat(2.0)
+            line.frame.size = CGSize(width: passwordTextField.frame.size.width, height: 1)
+            line.frame.origin = CGPoint(x: 0, y: passwordTextField.frame.height - width)
+            line.backgroundColor = #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)
+            line.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+            passwordTextField.addSubview(line)
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.attributedPlaceholder?.string ?? "", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)])
         }
     }
     @IBOutlet var usernameTextField: UITextField! {
         didSet {
             textFieldNoEditing(usernameTextField)
+            usernameTextField.borderStyle = .none
+            let line = UIView()
+            let width = CGFloat(2.0)
+            line.frame.size = CGSize(width: usernameTextField.frame.size.width, height: 1)
+            line.frame.origin = CGPoint(x: 0, y: usernameTextField.frame.height - width)
+            line.backgroundColor = #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)
+            line.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+            usernameTextField.addSubview(line)
+            usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.attributedPlaceholder?.string ?? "", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)])
+            
         }
     }
     
 
     
-    @IBOutlet var signInButton: UIButton!
+    @IBOutlet var signInButton: UIButton! {
+        didSet{
+            signInButton.layer.cornerRadius = signInButton.frame.height/4
+        }
+    }
     
-    @IBOutlet var signUpButton: UIButton!
+    @IBOutlet var signUpButton: UIButton! {
+        didSet{
+            signUpButton.layer.cornerRadius = signUpButton.frame.height/4
+        }
+    }
     
     
     @IBAction func logInPageToSignUpPage(_ sender: UIButton) {
@@ -81,13 +112,19 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "GoToProfile") {
+        if(segue.identifier == "toMainPage") {
             print("PREPARE FUNCTION TRIGGERED")
-            let vc1 = segue.destination as! UINavigationController
-            let vc: ProfileController = vc1.topViewController as! ProfileController
-            vc.currentUser = userEmail
-            vc.currentUserPicture = userPicture
-            vc.currentUserName = userName
+            if let navigationControllers = tabBarController?.viewControllers as? [UINavigationController] {
+                for navigationController in navigationControllers {
+                    let viewControllers = navigationController.viewControllers
+                    for _ in viewControllers {
+                        let vc = segue.destination as? ProfileController
+                        vc?.currentUser = userEmail
+                        vc?.currentUserPicture = userPicture
+                        vc?.currentUserName = userName
+                    }
+                }
+            }
  }
         
     }

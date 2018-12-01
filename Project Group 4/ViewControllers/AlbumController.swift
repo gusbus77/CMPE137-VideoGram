@@ -18,6 +18,13 @@ class AlbumController: UIViewController, UICollectionViewDataSource, UICollectio
         self.logOut()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "profileLogOut2") {
+            print("PREPARE FUNCTION TRIGGERED IN ALBUM CONTROLLER")
+            FBSDKLoginManager().logOut()
+        }
+    }
+    
     func logOut() {
         FBSDKLoginManager().logOut()
         print("logout works again")

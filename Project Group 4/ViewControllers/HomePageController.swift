@@ -35,6 +35,14 @@ class HomePageController: UIViewController {
         self.logOut()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "profileLogOut4") {
+            print("PREPARE FUNCTION TRIGGERED IN ALBUM CONTROLLER")
+            FBSDKLoginManager().logOut()
+        }
+    }
+
+    
     
     @IBAction func goToAlbums(_ sender: UIButton) {
         self.goToAlbum()
