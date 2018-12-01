@@ -57,8 +57,8 @@ class SignUpController: UIViewController{
                     UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput, email: emailInput)
                     UserBase.CKUsers.saveUserBase()
                     //Popup notification - Account is created, try logging in now
-                    self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
                     popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
+                    self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
                 }
                 else {
                     //Popup notification - Username already exists

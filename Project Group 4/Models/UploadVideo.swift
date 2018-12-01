@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import CloudKit
 
-//Not sure if this is per user session, or to db in general D: need to test
-
 class Video: NSObject {
     var username:           String = ""
     var videoID:            Int = 0
@@ -25,7 +23,7 @@ class Video: NSObject {
 class UploadVideo: NSObject {
     static let CKVideo = UploadVideo()
     
-    //Creates an array of Video class (class because we need inheritance)
+    //Creates an array of Video class
     var videos: [Video] = []
     
     var privateCKDatabase: CKDatabase = CKContainer.default().privateCloudDatabase

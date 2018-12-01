@@ -61,7 +61,7 @@ class VideoFeedController: UIViewController , UITableViewDelegate, UITableViewDa
 //
 //    func playSelectedVideo(at indexPath: IndexPath) {
 //        let videoToPlay = videos[indexPath.row]
-//        let vidPath = Bundle.main.path(forResource: videoToPlay.videoName, ofType: "mp4")
+//        let vidPath = Bundle.main.path(forResource: videoToPlay.videoID, ofType: "mp4")
 //        player = AVPlayer(url: URL)
 //        playerViewController.player = player
 //
@@ -69,5 +69,5 @@ class VideoFeedController: UIViewController , UITableViewDelegate, UITableViewDa
 //            self.playerViewController.player?.play()
 //        })
 //    }
-    
+//    
 } //end of VideoFeedController

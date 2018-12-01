@@ -15,6 +15,9 @@ import FBSDKLoginKit
 
 class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var vidIDCounter: Int = 0
+    var vidURL: URL!
+    var imgURL: URL!
+    var thumbnail: UIImage!
     var vidData: CKAsset!
     var imgData: CKAsset!
     
@@ -41,6 +44,7 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     
     let videoPicker = UIImagePickerController()
     //var selec
+    
     @IBAction func selectVideo(_ sender: Any) {
         videoPicker.sourceType = .photoLibrary
         videoPicker.mediaTypes = ["public.movie"];
@@ -51,41 +55,57 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     @IBAction func uploadVideoButton(_ sender: Any) {
         UploadVideo.CKVideo.saveVideo()
         popUpNotification(title: Success, message: Uploaded)
-        performSegue(withIdentifier: "GoToFeed", sender: self)
+        //performSegue(withIdentifier: "GoToFeed", sender: self)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let vidURL = info[UIImagePickerControllerMediaURL] as? URL {
+            
+            //Gets Thumbnail for Video
             let videoImg = AVAsset(url: vidURL)
             let imgThumbnail = videoImg.getThumbnail
-            previewThumbnail.image = imgThumbnail
-            
-            let imgURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-                .appendingPathComponent("tempVid", isDirectory: false)
-                .appendingPathExtension("jpg")
-            if let data = UIImageJPEGRepresentation(imgThumbnail!, 0.8) {
-                do {
-                    try data.write(to: imgURL)
-                } catch {
-                    popUpNotification(title: Error, message: CannotGetThumbnailUrl)
-                }
-            }
-            
-            vidData = CKAsset(fileURL: vidURL)
-            imgData = CKAsset(fileURL: imgURL)
-            let description = vidDescriptionTextField.text!
-            
-            UploadVideo.CKVideo.uploadVideo(username: "mlauzon", videoID: vidIDCounter, videoDescription: description, publicVid: 1, imgData: imgData, vidData: vidData)
-            vidIDCounter = vidIDCounter + 1
-            
-            do {
-                try FileManager.default.removeItem(at: imgURL)
-            } catch {
-                popUpNotification(title: Error, message: CannotClearTmpDir)
-            }
+            let thumbnail = imgThumbnail
+            previewThumbnail.image = thumbnail
             
             picker.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func saveVideo(_ vidurl: URL?, _ thumbnailimage: UIImage?) {
+        let vidRecord: CKRecord = CKRecord(recordType: "Videos")
+        if let saveURL = vidurl {
+            if let saveIMG = thumbnailimage {
+                let saveIMG:Data = UIImageJPEGRepresentation(saveIMG, 1.0)
+                let path:String = self.path
+            }
+        }
+        
+//        let imgURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+//            .appendingPathComponent("tempVid", isDirectory: false)
+//            .appendingPathExtension("jpg")
+//        if let data = UIImageJPEGRepresentation(imgThumbnail!, 0.8) {
+//            do {
+//                try data.write(to: imgURL)
+//            } catch {
+//                popUpNotification(title: Error, message: CannotGetThumbnailUrl)
+//            }
+//        }
+//
+//        vidData = CKAsset(fileURL: vidURL)
+//        imgData = CKAsset(fileURL: imgURL)
+//        let description = vidDescriptionTextField.text!
+//
+//        UploadVideo.CKVideo.uploadVideo(username: "mlauzon", videoID: vidIDCounter, videoDescription: description, publicVid: 1, imgData: imgData, vidData: vidData)
+//        vidIDCounter = vidIDCounter + 1
+//
+//        UploadVideo.CKVideo.saveVideo()
+//        popUpNotification(title: Success, message: Uploaded)
+//
+//        do {
+//            try FileManager.default.removeItem(at: imgURL)
+//        } catch {
+//            popUpNotification(title: Error, message: CannotClearTmpDir)
+//        }
     }
     
     
