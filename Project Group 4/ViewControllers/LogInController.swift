@@ -51,7 +51,7 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
             line.backgroundColor = #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)
             line.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
             passwordTextField.addSubview(line)
-            passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.attributedPlaceholder?.string ?? "", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)])
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.attributedPlaceholder?.string ?? "", attributes: [NSAttributedStringKey.foregroundColor: #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)])
         }
     }
     @IBOutlet var usernameTextField: UITextField! {
@@ -65,7 +65,7 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
             line.backgroundColor = #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)
             line.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
             usernameTextField.addSubview(line)
-            usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.attributedPlaceholder?.string ?? "", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)])
+            usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.attributedPlaceholder?.string ?? "", attributes: [NSAttributedStringKey.foregroundColor: #colorLiteral(red: 0.2480112612, green: 0.822899282, blue: 0.893343389, alpha: 1)])
             
         }
     }

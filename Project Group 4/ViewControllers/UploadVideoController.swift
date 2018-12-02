@@ -14,13 +14,6 @@ import MobileCoreServices
 import FBSDKLoginKit
 
 class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    var vidIDCounter: Int = 0
-    var vidURL: URL!
-    var imgURL: URL!
-    var thumbnail: UIImage!
-    var vidData: CKAsset!
-    var imgData: CKAsset!
-    
     
     @IBAction func logOut(_ sender: UIButton) {
         print("logout works")
@@ -52,6 +45,14 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     let videoPicker = UIImagePickerController()
     //var selec
     
+    var vidIDCounter: Int = 0
+    var vidAsset: CKAsset!
+    
+    let docDirectoryPath:NSString = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
+    var thumbnail: UIImage!
+    var imgURL: URL!
+    var imgAsset: CKAsset!
+    
     @IBAction func selectVideo(_ sender: Any) {
         videoPicker.sourceType = .photoLibrary
         videoPicker.mediaTypes = ["public.movie"];
@@ -60,32 +61,47 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     }
     
     @IBAction func uploadVideoButton(_ sender: Any) {
-        UploadVideo.CKVideo.saveVideo()
+        self.importVideo(vidAsset, thumbnail)
         popUpNotification(title: Success, message: Uploaded)
         //performSegue(withIdentifier: "GoToFeed", sender: self)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let vidURL = info[UIImagePickerControllerMediaURL] as? URL {
-            
             //Gets Thumbnail for Video
             let videoImg = AVAsset(url: vidURL)
             let imgThumbnail = videoImg.getThumbnail
             let thumbnail = imgThumbnail
             previewThumbnail.image = thumbnail
             
+            vidAsset = CKAsset(fileURL: vidURL)
+            
+            //Dismiss Picker
             picker.dismiss(animated: true, completion: nil)
         }
     }
     
-    func saveVideo(_ vidurl: URL?, _ thumbnailimage: UIImage?) {
-        let vidRecord: CKRecord = CKRecord(recordType: "Videos")
-        if let saveURL = vidurl {
-            if let saveIMG = thumbnailimage {
-                let saveIMG:Data = UIImageJPEGRepresentation(saveIMG, 1.0)
-                let path:String = self.path
-            }
+    func importVideo(_ selectedvid: CKAsset?, _ thumbnailimage: UIImage?) {
+        if let image = thumbnailimage {
+            let imageData:Data = UIImageJPEGRepresentation(image, 1.0)!
+            let path:String = self.docDirectoryPath.appendingPathComponent("thumbnail.jpg")
+            try? UIImageJPEGRepresentation(image, 1.0)!.write(to: URL(fileURLWithPath: path), options: [.atomic])
+            self.imgURL = URL(fileURLWithPath: path)
+            try? imageData.write(to: self.imgURL, options: [.atomic])
+            
+            let imgAsset = CKAsset(fileURL: URL(fileURLWithPath: path))
         }
+        
+        let description = vidDescriptionTextField.text!
+        
+        UploadVideo.CKVideo.uploadVideo(username: "mlauzon", videoID: vidIDCounter, videoDescription: description, publicVid: 1, imgData: imgAsset, vidData: vidAsset!)
+        
+        UploadVideo.CKVideo.saveVideo()
+        
+        //Increment vidID
+        vidIDCounter = vidIDCounter + 1
+    }
+        
         
 //        let imgURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
 //            .appendingPathComponent("tempVid", isDirectory: false)
@@ -113,7 +129,7 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
 //        } catch {
 //            popUpNotification(title: Error, message: CannotClearTmpDir)
 //        }
-    }
+    
     
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

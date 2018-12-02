@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="118690-new-black-gradient-background-1920x1080-for-retina" translatesAutoresizingMaskIntoConstraints="NO" id="XRB-hW-asL">
-                                <rect key="frame" x="0.0" y="-112" width="375" height="1090"/>
+                                <rect key="frame" x="0.0" y="-156" width="375" height="1134"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0E-fQ-jkT">
-                                <rect key="frame" x="20" y="548" width="335" height="50"/>
+                                <rect key="frame" x="20" y="504" width="335" height="50"/>
                                 <color key="backgroundColor" red="0.21852311790000001" green="0.78765402390000006" blue="0.86663530759999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fd3-e5-unz"/>
@@ -37,7 +37,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="DNN-U3-vPI">
-                                <rect key="frame" x="20" y="408" width="335" height="35"/>
+                                <rect key="frame" x="20" y="364" width="335" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="aav-Ib-wQN"/>
                                 </constraints>
@@ -46,7 +46,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Vxu-fN-D8U">
-                                <rect key="frame" x="20" y="463" width="335" height="35"/>
+                                <rect key="frame" x="20" y="419" width="335" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="UMN-3H-KM3"/>
                                 </constraints>
@@ -55,7 +55,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0B-Hu-0vN">
-                                <rect key="frame" x="20" y="613" width="335" height="50"/>
+                                <rect key="frame" x="20" y="569" width="335" height="50"/>
                                 <color key="backgroundColor" red="0.21852311790000001" green="0.78765402390000006" blue="0.86663530759999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="oAG-yG-2kr"/>
@@ -69,7 +69,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VideoGram (3)" translatesAutoresizingMaskIntoConstraints="NO" id="o4c-3Z-uTU">
-                                <rect key="frame" x="10" y="68" width="355" height="360"/>
+                                <rect key="frame" x="10" y="24" width="355" height="360"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="360" id="uEo-wc-yQn"/>
                                 </constraints>
@@ -279,7 +279,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdT-Vg-1Qy">
-                                <rect key="frame" x="37" y="88" width="34" height="30"/>
+                                <rect key="frame" x="37" y="44" width="34" height="30"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -684,10 +684,10 @@
     </scenes>
     <resources>
         <image name="118690-new-black-gradient-background-1920x1080-for-retina" width="1920" height="1080"/>
-        <image name="VideoGram (3)" width="375" height="375"/>
+        <image name="VideoGram (3)" width="500" height="500"/>
         <image name="f3" width="1080" height="1214"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vJw-7O-rKr"/>
+        <segue reference="e6A-Sm-6Jy"/>
     </inferredMetricsTieBreakers>
 </document>

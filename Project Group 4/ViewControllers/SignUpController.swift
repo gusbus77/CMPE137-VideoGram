@@ -55,9 +55,9 @@ class SignUpController: UIViewController{
                 //Check if Username is Taken
                 if UserBase.CKUsers.verifyUser(username: usernameInput) == .UsernameDoesNotExist {
                     UserBase.CKUsers.addUser(username: usernameInput, password: passwordInput, email: emailInput)
-                    UserBase.CKUsers.saveUserBase()
                     //Popup notification - Account is created, try logging in now
                     popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
+                    UserBase.CKUsers.saveUserBase()
                     self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
                 }
                 else {
