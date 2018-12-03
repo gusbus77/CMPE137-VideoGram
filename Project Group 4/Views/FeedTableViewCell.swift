@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import AVFoundation
 import UIKit
+import CloudKit
 
 class FeedTableViewCell: UITableViewCell {
     
@@ -25,7 +25,9 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func updateTableViewCell() {
-//        thumbnailImageView.image = UIImage(named: video.videoThumbnail)
+        let videoThumb = video.videoImg
+        let thumbnailImage = videoThumb?.getImage()
+        thumbnailImageView.image = thumbnailImage
         thumbnailImageView.layer.cornerRadius = 8.0
         thumbnailImageView.layer.masksToBounds = true
         
@@ -33,5 +35,15 @@ class FeedTableViewCell: UITableViewCell {
         videoDescriptionLabel.text = video.videoDescription
     }
 }
+
+extension CKAsset {
+    func getImage() -> UIImage? {
+        if let data = NSData(contentsOf: self.fileURL) {
+            return UIImage(data: data as Data)
+        }
+        return nil
+    }
+}
+
 
 

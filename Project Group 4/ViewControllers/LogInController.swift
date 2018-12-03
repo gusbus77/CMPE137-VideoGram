@@ -8,7 +8,7 @@
 import UIKit
 import FBSDKLoginKit
 class LogInController: UIViewController, FBSDKLoginButtonDelegate {
-    
+
     var fbToken = false
     var userEmail:String = ""
     var userPicture:String = ""
@@ -20,9 +20,11 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.delegate = self
         view.addSubview(loginButton)
         loginButton.frame = CGRect(x: 20, y: 640, width: view.frame.width - 40, height: 50)
+        UserBase.CKUsers.loadUserBase()
         //loginButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         //loginButton.layer.cornerRadius = signInButton.frame.height/2
     }
+    
     
     
     

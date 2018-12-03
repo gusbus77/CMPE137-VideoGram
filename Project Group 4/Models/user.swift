@@ -1,12 +1,6 @@
 import Foundation
 import CloudKit
-// ToDo: Add email verification when registering, send an email to users
-//enum RegistrationResults {
-//    case InvalidEmailAddress
-//    case PasswordNotStrongEnough
-//    case RegistrationFailed
-//    case SuccessfulRegistration
-//}
+
 enum LoginResults {
     case AccountDoesNotExist
     case AccountExists
@@ -18,7 +12,6 @@ enum LoginResults {
 struct User {
     var username: String = ""
     var password: String = ""
-    var email: String = ""
     //var uniqueuserID: Int = ""
 }
 
@@ -27,7 +20,6 @@ class UserBase{
     
     var users: [User] = []
     var privateCKDatabase: CKDatabase = CKContainer.default().privateCloudDatabase
-    var publicCKDatabase: CKDatabase = CKContainer.default().publicCloudDatabase
     
     static var uniqueID = 0
     
@@ -44,10 +36,9 @@ class UserBase{
     }
     
     func loadUserBase() {
-        users = []
-        
         let predicate = NSPredicate(value:true)
         let query = CKQuery(recordType: "User", predicate: predicate)
+        
         privateCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
             if error == nil {
                 guard let records = records else {
@@ -55,10 +46,9 @@ class UserBase{
                     return
                 }
                 for record in records {
-                    let username = record.object(forKey: "username") as! String
-                    let password = record.object(forKey: "password") as! String
-                    let email = record.object(forKey: "email") as! String
-                    self.addUser(username: username, password: password, email: email)
+                    let fetchUser = User(username: record.object(forKey: "username") as! String, password: record.object(forKey: "password") as! String)
+                    print (fetchUser.username)
+                    self.users.append(fetchUser)
                 }
             }
             else {
@@ -68,17 +58,12 @@ class UserBase{
         }
     }
     
-    func willthisExist() {
-        
-    }
-    
     func saveUserBase() {
         let record = CKRecord(recordType: "User")
         
         for user in users {
             record.setObject(user.username as CKRecordValue?, forKey: "username")
             record.setObject(user.password as CKRecordValue?, forKey: "password")
-            record.setObject(user.email as CKRecordValue?, forKey: "email")
             privateCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                 if error == nil {
                     return
@@ -87,48 +72,29 @@ class UserBase{
         }
     }
     
-    func addUser(username: String, password: String, email: String) {
-        let newUser = User(username: username, password: password, email: email)
+    func addUser(username: String, password: String) {
+        let newUser = User(username: username, password: password)
         users.append(newUser)
     }
     
     
     func verifyUser(username: String)->LoginResults{
-        if users.contains(where: {$0.username == username.lowercased()}) {
+        if users.contains(where: {$0.username == username}) {
             return .UsernameExists
         }
         else {
             return .UsernameDoesNotExist
         }
     }
-    
-    func checkIfUserHasAnAccount(email: String)->LoginResults{
-        if users.contains(where: {$0.email == email.lowercased()}) {
-            return .AccountExists
-        }
-        else {
-            return .AccountDoesNotExist
-        }
-    }
 
-    func login(username: String, password: String)->LoginResults {
-        let verification = verifyUser(username: username)
-        
+
+    func login(username: String, password: String)->LoginResults {        
         if let user = users.first(where: {$0.username == username.lowercased()}) {
-            if verification == .UsernameExists {
-                if user.password == password {
-                    return .SuccessfulLogin
-                }
+            if user.password == password {
+                return .SuccessfulLogin
             }
         }
         return .IncorrectPassword
     }
-    
-    
-    //TODO
-    //Add register throughu Social Media
-    //Add email verification when registering new account
-    //Check for password complexity when registering new account
-    //Add 2-step verification
     
 }

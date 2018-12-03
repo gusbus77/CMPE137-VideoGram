@@ -43,15 +43,9 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     @IBOutlet weak var previewThumbnail: UIImageView!
     
     let videoPicker = UIImagePickerController()
-    //var selec
-    
-    var vidIDCounter: Int = 0
-    var vidAsset: CKAsset!
-    
     let docDirectoryPath:NSString = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
-    var thumbnail: UIImage!
-    var imgURL: URL!
-    var imgAsset: CKAsset!
+    let docDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    var vidIDCounter: Int = 0
     
     @IBAction func selectVideo(_ sender: Any) {
         videoPicker.sourceType = .photoLibrary
@@ -61,76 +55,62 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     }
     
     @IBAction func uploadVideoButton(_ sender: Any) {
-        self.importVideo(vidAsset, thumbnail)
+        UploadVideo.CKVideo.saveVideo()
         popUpNotification(title: Success, message: Uploaded)
-        //performSegue(withIdentifier: "GoToFeed", sender: self)
+        
+        //Perform Segue to VideoFeed
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let vidURL = info[UIImagePickerControllerMediaURL] as? URL {
+        var thumbnail: UIImage!
+        var vidURL: URL!
+        
+        if let fileurl = info[UIImagePickerControllerMediaURL] as? URL {
             //Gets Thumbnail for Video
-            let videoImg = AVAsset(url: vidURL)
+            let videoImg = AVAsset(url: fileurl)
             let imgThumbnail = videoImg.getThumbnail
-            let thumbnail = imgThumbnail
-            previewThumbnail.image = thumbnail
+            previewThumbnail.image = imgThumbnail
             
-            vidAsset = CKAsset(fileURL: vidURL)
+            //Save videoURL and thumbnail to struct
+            vidURL = fileurl
+            thumbnail = imgThumbnail
+            
+            //Append the Video to UploadVideo Class Video Array
+            self.importVideo(vidURL, thumbnail)
             
             //Dismiss Picker
             picker.dismiss(animated: true, completion: nil)
         }
     }
     
-    func importVideo(_ selectedvid: CKAsset?, _ thumbnailimage: UIImage?) {
+    func importVideo(_ videourl: URL?, _ thumbnailimage: UIImage?) {
+        var imgAsset: CKAsset!
+        var vidAsset: CKAsset!
+        var imgURL: URL!
+        
         if let image = thumbnailimage {
             let imageData:Data = UIImageJPEGRepresentation(image, 1.0)!
             let path:String = self.docDirectoryPath.appendingPathComponent("thumbnail.jpg")
             try? UIImageJPEGRepresentation(image, 1.0)!.write(to: URL(fileURLWithPath: path), options: [.atomic])
-            self.imgURL = URL(fileURLWithPath: path)
-            try? imageData.write(to: self.imgURL, options: [.atomic])
-            
-            let imgAsset = CKAsset(fileURL: URL(fileURLWithPath: path))
+            imgURL = URL(fileURLWithPath: path)
+            try? imageData.write(to: imgURL, options: [.atomic])
+            //Save Thumbnail as a CKAsset
+            imgAsset = CKAsset(fileURL: URL(fileURLWithPath: path))
         }
         
+        //Gets text string from textfield
         let description = vidDescriptionTextField.text!
         
-        UploadVideo.CKVideo.uploadVideo(username: "mlauzon", videoID: vidIDCounter, videoDescription: description, publicVid: 1, imgData: imgAsset, vidData: vidAsset!)
+        //Save videoURL as CKAsset
+        vidAsset = CKAsset(fileURL: videourl!)
         
-        UploadVideo.CKVideo.saveVideo()
+        //Appends Video to User's Array of Videos to Save to CKDB
+        UploadVideo.CKVideo.uploadVideo(username: "mlauzon", videoID: vidIDCounter, videoDescription: description, publicVid: 1, imgData: imgAsset, vidData: vidAsset)
         
         //Increment vidID
         vidIDCounter = vidIDCounter + 1
     }
-        
-        
-//        let imgURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-//            .appendingPathComponent("tempVid", isDirectory: false)
-//            .appendingPathExtension("jpg")
-//        if let data = UIImageJPEGRepresentation(imgThumbnail!, 0.8) {
-//            do {
-//                try data.write(to: imgURL)
-//            } catch {
-//                popUpNotification(title: Error, message: CannotGetThumbnailUrl)
-//            }
-//        }
-//
-//        vidData = CKAsset(fileURL: vidURL)
-//        imgData = CKAsset(fileURL: imgURL)
-//        let description = vidDescriptionTextField.text!
-//
-//        UploadVideo.CKVideo.uploadVideo(username: "mlauzon", videoID: vidIDCounter, videoDescription: description, publicVid: 1, imgData: imgData, vidData: vidData)
-//        vidIDCounter = vidIDCounter + 1
-//
-//        UploadVideo.CKVideo.saveVideo()
-//        popUpNotification(title: Success, message: Uploaded)
-//
-//        do {
-//            try FileManager.default.removeItem(at: imgURL)
-//        } catch {
-//            popUpNotification(title: Error, message: CannotClearTmpDir)
-//        }
-    
-    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
@@ -157,6 +137,7 @@ class UploadVideoController: UIViewController, UITextFieldDelegate, UINavigation
     let Error = "Error"
     let Success = "Success"
     let CannotGetThumbnailUrl = "Cannot get thumbnail URL"
+    let CannotSaveMovieToDocumentDirectory = "Cannot Save Movie To Document Directory"
     let CannotClearTmpDir = "Cannot Clear Temporary Directory"
     let Uploaded = "Video Successfully Uploaded"
 }
