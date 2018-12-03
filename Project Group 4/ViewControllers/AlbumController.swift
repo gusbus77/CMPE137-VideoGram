@@ -8,9 +8,16 @@
 
 import UIKit
 import FBSDKLoginKit
+import AVKit
 
 class AlbumController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    var player = AVPlayer()
+    var playerViewController = AVPlayerViewController()
+    
+    var albumVideos : [Video] = []
+    
+    
     @IBOutlet weak var albumCollectionView: UICollectionView!
     
     @IBAction func logOut(_ sender: UIButton) {
@@ -32,11 +39,11 @@ class AlbumController: UIViewController, UICollectionViewDataSource, UICollectio
         //self.navigationController?.popToRootViewController(animated: true)
     }
     
-    var photoCategories: [PhotoCategory] = PhotoCategory.fetchPhotos()
+    //var photoCategories: [PhotoCategory] = PhotoCategory.fetchPhotos()
     
     struct Storyboard {
         static let videoCell = "VideoCell"
-        static let sectionHeaderView = "SectionHeaderView"
+       // static let sectionHeaderView = "SectionHeaderView"
         static let leftAndRightPaddings : CGFloat = 2.0
         static let numberOfItemsPerRow: CGFloat = 3.0
         
@@ -53,40 +60,46 @@ class AlbumController: UIViewController, UICollectionViewDataSource, UICollectio
         layout.minimumLineSpacing = 3
         
         albumCollectionView.collectionViewLayout = layout
+        
+        albumVideos = UploadVideo.CKVideo.loadPublicVideos()
     }
     
 
      func numberOfSections(in collectionView: UICollectionView) -> Int {
         
-        return photoCategories.count
+        return albumVideos.count
     }
     
     
      func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return photoCategories[section].imageNames.count
+        return (albumVideos.count / 3)
     }
     
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.videoCell, for: indexPath) as! VideoCollectionViewCell
         
-        let photoCategory = photoCategories[indexPath.section]
+     /*   let photoCategory = photoCategories[indexPath.section]
         let imageNames = photoCategory.imageNames
         let imageName = imageNames[indexPath.item]
         
-        cell.imageName = imageName
+        cell.imageName = imageName*/
+        
+        let videoFile = albumVideos[indexPath.item]
+        cell.video = videoFile
+        
         
         return cell
     }
     
     // For sectionHeaderView.
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+ /*   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Storyboard.sectionHeaderView, for: indexPath) as! HeaderView
         
         let category = photoCategories[indexPath.section]
         sectionHeaderView.photoCategory = category
         
         return sectionHeaderView
-    }
+    }*/
 
 }

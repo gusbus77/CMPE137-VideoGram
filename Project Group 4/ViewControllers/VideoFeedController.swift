@@ -14,6 +14,11 @@ import FBSDKLoginKit
 
 
 class VideoFeedController: UIViewController {
+    
+    var currentUser:String = ""
+    var currentUserPicture:String = ""
+    var currentUserName:String = ""
+    
     var player = AVPlayer()
     var playerViewController = AVPlayerViewController()
     

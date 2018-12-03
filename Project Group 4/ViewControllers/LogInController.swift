@@ -120,7 +120,7 @@ class LogInController: UIViewController, FBSDKLoginButtonDelegate {
                 for navigationController in navigationControllers {
                     let viewControllers = navigationController.viewControllers
                     for _ in viewControllers {
-                        let vc = segue.destination as? ProfileController
+                        let vc = segue.destination as? VideoFeedController
                         vc?.currentUser = userEmail
                         vc?.currentUserPicture = userPicture
                         vc?.currentUserName = userName

@@ -12,9 +12,11 @@ class VideoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var videoImageView: UIImageView!
     
-    var imageName: String! {
+    var video: Video! {
         didSet{
-            videoImageView.image = UIImage(named: imageName)
+            let videoImage = video.videoImg
+            let videoThumnailImage = videoImage?.getImage()
+            videoImageView.image = videoThumnailImage
         }
     }
     
