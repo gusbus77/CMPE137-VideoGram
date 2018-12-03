@@ -42,12 +42,11 @@ class SignUpController: UIViewController{
         }
     }
     
-    func goToLogInPageFromSignUp() {
+    func goToLoginPage() {
         performSegue(withIdentifier: "SignupToLogin", sender: nil)
-        print("other function")
     }
     @IBAction func GoBackToLoginPage(_ sender: Any) {
-        self.goToLogInPageFromSignUp()
+        self.goToLoginPage()
     }
     @IBAction func CreateAccountAction(_ sender: Any) {
         let usernameInput = usernameTextField.text!
@@ -60,7 +59,9 @@ class SignUpController: UIViewController{
                 //Popup notification - Account is created, try logging in now
                 popUpNotification(title: CreatedAccount, message: NewAccountSignIn)
                 UserBase.CKUsers.saveUserBase()
-                self.goToLogInPageFromSignUp() //Go to login page if signup sucessfully.
+                
+                //Segue back to Log In Page
+                self.goToLoginPage()
             }
             else {
                 //Popup notification - Username already exists

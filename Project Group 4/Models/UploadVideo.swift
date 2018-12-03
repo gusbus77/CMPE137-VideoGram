@@ -58,6 +58,7 @@ class UploadVideo: NSObject {
         }
         return gotVids
     }
+    
     //Loads and returns an array of public videos
     func loadPublicVideos() -> [Video] {
         //Predicate needs to Query all entries where publicVid == 1
