@@ -16,14 +16,17 @@ import FBSDKLoginKit
 class VideoFeedController: UIViewController {
     var player = AVPlayer()
     var playerViewController = AVPlayerViewController()
+    
+    //Create an Array of Videos
     var feedVideos : [Video] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.feedTableView.dataSource = self
         self.feedTableView.delegate   = self
         
-        //Load videos from CloudKit DB into an array called videos
+        //Load videos from CloudKit DB into Videos
         feedVideos = UploadVideo.CKVideo.loadPublicVideos()
     }
     

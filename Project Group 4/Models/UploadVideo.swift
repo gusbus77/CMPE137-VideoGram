@@ -61,11 +61,12 @@ class UploadVideo: NSObject {
     
     //Loads and returns an array of public videos
     func loadPublicVideos() -> [Video] {
-        //Predicate needs to Query all entries where publicVid == 1
+        //Predicate returns all data stored in Record
         let predicate = NSPredicate(value:true)
+        //Query searches in Videos Record
         let query = CKQuery(recordType: "Videos", predicate: predicate)
-        
-        var gotVids = [Video]()
+        //Create 
+        var gotVids : [Video] = []
         let loadingVid = Video()
         publicCKDatabase.perform(query, inZoneWith: nil) { (records: [CKRecord]?, error: Error?) in
             if error == nil {
@@ -130,6 +131,11 @@ class UploadVideo: NSObject {
             record.setObject(video.videoImg as CKRecordValue?, forKey: "vidImg")
             record.setObject(video.videoData as CKRecordValue?, forKey: "videoData")
             privateCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
+                if error == nil {
+                    return
+                }
+            }
+            sharedCKDatabase.save(record) { (savedRecord: CKRecord?, error: Error?) -> Void in
                 if error == nil {
                     return
                 }
